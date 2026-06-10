@@ -22,8 +22,16 @@ export function getPairsByCategory(category: CategoryId): ConversionPair[] {
   return conversionPairs.filter((p) => p.category === category);
 }
 
+export function getReversePair(pair: ConversionPair): ConversionPair | undefined {
+  const reverseSlug = `${pair.to}-to-${pair.from}`;
+  return conversionPairs.find((p) => p.slug === reverseSlug);
+}
+
 export function getRelatedPairs(pair: ConversionPair, limit = 6): ConversionPair[] {
-  return conversionPairs
-    .filter((p) => p.category === pair.category && p.slug !== pair.slug)
-    .slice(0, limit);
+  const reverse = getReversePair(pair);
+  const others = conversionPairs.filter(
+    (p) => p.category === pair.category && p.slug !== pair.slug && p.slug !== reverse?.slug,
+  );
+  const result = reverse ? [reverse, ...others] : others;
+  return result.slice(0, limit);
 }

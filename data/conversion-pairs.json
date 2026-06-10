@@ -1,58 +1,1516 @@
 {
   "pairs": [
-    { "slug": "cm-to-inch", "category": "length", "from": "cm", "to": "inch", "defaultValue": 10 },
-    { "slug": "mm-to-inch", "category": "length", "from": "mm", "to": "inch", "defaultValue": 25 },
-    { "slug": "m-to-foot", "category": "length", "from": "m", "to": "foot", "defaultValue": 1 },
-    { "slug": "km-to-mile", "category": "length", "from": "km", "to": "mile", "defaultValue": 5 },
-    { "slug": "cm-to-foot", "category": "length", "from": "cm", "to": "foot", "defaultValue": 30 },
-    { "slug": "inch-to-cm", "category": "length", "from": "inch", "to": "cm", "defaultValue": 12 },
-    { "slug": "foot-to-m", "category": "length", "from": "foot", "to": "m", "defaultValue": 6 },
-    { "slug": "yard-to-m", "category": "length", "from": "yard", "to": "m", "defaultValue": 1 },
-    { "slug": "mm-to-cm", "category": "length", "from": "mm", "to": "cm", "defaultValue": 100 },
-    { "slug": "cm-to-m", "category": "length", "from": "cm", "to": "m", "defaultValue": 150 },
-    { "slug": "mile-to-km", "category": "length", "from": "mile", "to": "km", "defaultValue": 1 },
-    { "slug": "inch-to-mm", "category": "length", "from": "inch", "to": "mm", "defaultValue": 1 },
-    { "slug": "foot-to-cm", "category": "length", "from": "foot", "to": "cm", "defaultValue": 5 },
-    { "slug": "m-to-inch", "category": "length", "from": "m", "to": "inch", "defaultValue": 1 },
-    { "slug": "nauticalmile-to-mile", "category": "length", "from": "nauticalmile", "to": "mile", "defaultValue": 1 },
-
-    { "slug": "kg-to-lb", "category": "weight", "from": "kg", "to": "lb", "defaultValue": 70 },
-    { "slug": "g-to-oz", "category": "weight", "from": "g", "to": "oz", "defaultValue": 100 },
-    { "slug": "lb-to-kg", "category": "weight", "from": "lb", "to": "kg", "defaultValue": 150 },
-    { "slug": "oz-to-g", "category": "weight", "from": "oz", "to": "g", "defaultValue": 8 },
-    { "slug": "kg-to-g", "category": "weight", "from": "kg", "to": "g", "defaultValue": 1 },
-    { "slug": "stone-to-kg", "category": "weight", "from": "stone", "to": "kg", "defaultValue": 12 },
-    { "slug": "mg-to-g", "category": "weight", "from": "mg", "to": "g", "defaultValue": 500 },
-    { "slug": "ton-to-kg", "category": "weight", "from": "ton", "to": "kg", "defaultValue": 1 },
-    { "slug": "lb-to-oz", "category": "weight", "from": "lb", "to": "oz", "defaultValue": 1 },
-    { "slug": "g-to-lb", "category": "weight", "from": "g", "to": "lb", "defaultValue": 500 },
-
-    { "slug": "celsius-to-fahrenheit", "category": "temperature", "from": "celsius", "to": "fahrenheit", "defaultValue": 20 },
-    { "slug": "fahrenheit-to-celsius", "category": "temperature", "from": "fahrenheit", "to": "celsius", "defaultValue": 68 },
-    { "slug": "celsius-to-kelvin", "category": "temperature", "from": "celsius", "to": "kelvin", "defaultValue": 25 },
-    { "slug": "fahrenheit-to-kelvin", "category": "temperature", "from": "fahrenheit", "to": "kelvin", "defaultValue": 98 },
-    { "slug": "kelvin-to-celsius", "category": "temperature", "from": "kelvin", "to": "celsius", "defaultValue": 300 },
-
-    { "slug": "liter-to-gallon", "category": "volume", "from": "liter", "to": "gallon", "defaultValue": 4 },
-    { "slug": "ml-to-floz", "category": "volume", "from": "ml", "to": "floz", "defaultValue": 250 },
-    { "slug": "cup-to-ml", "category": "volume", "from": "cup", "to": "ml", "defaultValue": 2 },
-    { "slug": "liter-to-quart", "category": "volume", "from": "liter", "to": "quart", "defaultValue": 1 },
-    { "slug": "gallon-to-liter", "category": "volume", "from": "gallon", "to": "liter", "defaultValue": 1 },
-    { "slug": "floz-to-ml", "category": "volume", "from": "floz", "to": "ml", "defaultValue": 12 },
-    { "slug": "tbsp-to-ml", "category": "volume", "from": "tbsp", "to": "ml", "defaultValue": 3 },
-    { "slug": "pint-to-liter", "category": "volume", "from": "pint", "to": "liter", "defaultValue": 2 },
-    { "slug": "m3-to-liter", "category": "volume", "from": "m3", "to": "liter", "defaultValue": 1 },
-    { "slug": "gallon-to-quart", "category": "volume", "from": "gallon", "to": "quart", "defaultValue": 1 },
-
-    { "slug": "m2-to-sqft", "category": "area", "from": "m2", "to": "sqft", "defaultValue": 50 },
-    { "slug": "acre-to-hectare", "category": "area", "from": "acre", "to": "hectare", "defaultValue": 1 },
-    { "slug": "hectare-to-acre", "category": "area", "from": "hectare", "to": "acre", "defaultValue": 1 },
-    { "slug": "sqft-to-m2", "category": "area", "from": "sqft", "to": "m2", "defaultValue": 1000 },
-    { "slug": "kmh-to-mph", "category": "speed", "from": "kmh", "to": "mph", "defaultValue": 100 },
-    { "slug": "mph-to-kmh", "category": "speed", "from": "mph", "to": "kmh", "defaultValue": 60 },
-    { "slug": "mps-to-mph", "category": "speed", "from": "mps", "to": "mph", "defaultValue": 10 },
-    { "slug": "knots-to-mph", "category": "speed", "from": "knots", "to": "mph", "defaultValue": 30 },
-    { "slug": "kmh-to-mps", "category": "speed", "from": "kmh", "to": "mps", "defaultValue": 90 },
-    { "slug": "mps-to-kmh", "category": "speed", "from": "mps", "to": "kmh", "defaultValue": 15 }
+    {
+      "slug": "acre-to-hectare",
+      "category": "area",
+      "from": "acre",
+      "to": "hectare",
+      "defaultValue": 1
+    },
+    {
+      "slug": "acre-to-m2",
+      "category": "area",
+      "from": "acre",
+      "to": "m2",
+      "defaultValue": 1
+    },
+    {
+      "slug": "acre-to-sqft",
+      "category": "area",
+      "from": "acre",
+      "to": "sqft",
+      "defaultValue": 1
+    },
+    {
+      "slug": "hectare-to-acre",
+      "category": "area",
+      "from": "hectare",
+      "to": "acre",
+      "defaultValue": 1
+    },
+    {
+      "slug": "hectare-to-m2",
+      "category": "area",
+      "from": "hectare",
+      "to": "m2",
+      "defaultValue": 1
+    },
+    {
+      "slug": "hectare-to-sqft",
+      "category": "area",
+      "from": "hectare",
+      "to": "sqft",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m2-to-acre",
+      "category": "area",
+      "from": "m2",
+      "to": "acre",
+      "defaultValue": 50
+    },
+    {
+      "slug": "m2-to-hectare",
+      "category": "area",
+      "from": "m2",
+      "to": "hectare",
+      "defaultValue": 50
+    },
+    {
+      "slug": "m2-to-sqft",
+      "category": "area",
+      "from": "m2",
+      "to": "sqft",
+      "defaultValue": 50
+    },
+    {
+      "slug": "sqft-to-acre",
+      "category": "area",
+      "from": "sqft",
+      "to": "acre",
+      "defaultValue": 1000
+    },
+    {
+      "slug": "sqft-to-hectare",
+      "category": "area",
+      "from": "sqft",
+      "to": "hectare",
+      "defaultValue": 1000
+    },
+    {
+      "slug": "sqft-to-m2",
+      "category": "area",
+      "from": "sqft",
+      "to": "m2",
+      "defaultValue": 1000
+    },
+    {
+      "slug": "cm-to-foot",
+      "category": "length",
+      "from": "cm",
+      "to": "foot",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-inch",
+      "category": "length",
+      "from": "cm",
+      "to": "inch",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-km",
+      "category": "length",
+      "from": "cm",
+      "to": "km",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-m",
+      "category": "length",
+      "from": "cm",
+      "to": "m",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-mile",
+      "category": "length",
+      "from": "cm",
+      "to": "mile",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-mm",
+      "category": "length",
+      "from": "cm",
+      "to": "mm",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-nauticalmile",
+      "category": "length",
+      "from": "cm",
+      "to": "nauticalmile",
+      "defaultValue": 10
+    },
+    {
+      "slug": "cm-to-yard",
+      "category": "length",
+      "from": "cm",
+      "to": "yard",
+      "defaultValue": 10
+    },
+    {
+      "slug": "foot-to-cm",
+      "category": "length",
+      "from": "foot",
+      "to": "cm",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-inch",
+      "category": "length",
+      "from": "foot",
+      "to": "inch",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-km",
+      "category": "length",
+      "from": "foot",
+      "to": "km",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-m",
+      "category": "length",
+      "from": "foot",
+      "to": "m",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-mile",
+      "category": "length",
+      "from": "foot",
+      "to": "mile",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-mm",
+      "category": "length",
+      "from": "foot",
+      "to": "mm",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-nauticalmile",
+      "category": "length",
+      "from": "foot",
+      "to": "nauticalmile",
+      "defaultValue": 6
+    },
+    {
+      "slug": "foot-to-yard",
+      "category": "length",
+      "from": "foot",
+      "to": "yard",
+      "defaultValue": 6
+    },
+    {
+      "slug": "inch-to-cm",
+      "category": "length",
+      "from": "inch",
+      "to": "cm",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-foot",
+      "category": "length",
+      "from": "inch",
+      "to": "foot",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-km",
+      "category": "length",
+      "from": "inch",
+      "to": "km",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-m",
+      "category": "length",
+      "from": "inch",
+      "to": "m",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-mile",
+      "category": "length",
+      "from": "inch",
+      "to": "mile",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-mm",
+      "category": "length",
+      "from": "inch",
+      "to": "mm",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-nauticalmile",
+      "category": "length",
+      "from": "inch",
+      "to": "nauticalmile",
+      "defaultValue": 12
+    },
+    {
+      "slug": "inch-to-yard",
+      "category": "length",
+      "from": "inch",
+      "to": "yard",
+      "defaultValue": 12
+    },
+    {
+      "slug": "km-to-cm",
+      "category": "length",
+      "from": "km",
+      "to": "cm",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-foot",
+      "category": "length",
+      "from": "km",
+      "to": "foot",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-inch",
+      "category": "length",
+      "from": "km",
+      "to": "inch",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-m",
+      "category": "length",
+      "from": "km",
+      "to": "m",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-mile",
+      "category": "length",
+      "from": "km",
+      "to": "mile",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-mm",
+      "category": "length",
+      "from": "km",
+      "to": "mm",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-nauticalmile",
+      "category": "length",
+      "from": "km",
+      "to": "nauticalmile",
+      "defaultValue": 5
+    },
+    {
+      "slug": "km-to-yard",
+      "category": "length",
+      "from": "km",
+      "to": "yard",
+      "defaultValue": 5
+    },
+    {
+      "slug": "m-to-cm",
+      "category": "length",
+      "from": "m",
+      "to": "cm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-foot",
+      "category": "length",
+      "from": "m",
+      "to": "foot",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-inch",
+      "category": "length",
+      "from": "m",
+      "to": "inch",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-km",
+      "category": "length",
+      "from": "m",
+      "to": "km",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-mile",
+      "category": "length",
+      "from": "m",
+      "to": "mile",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-mm",
+      "category": "length",
+      "from": "m",
+      "to": "mm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-nauticalmile",
+      "category": "length",
+      "from": "m",
+      "to": "nauticalmile",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m-to-yard",
+      "category": "length",
+      "from": "m",
+      "to": "yard",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-cm",
+      "category": "length",
+      "from": "mile",
+      "to": "cm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-foot",
+      "category": "length",
+      "from": "mile",
+      "to": "foot",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-inch",
+      "category": "length",
+      "from": "mile",
+      "to": "inch",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-km",
+      "category": "length",
+      "from": "mile",
+      "to": "km",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-m",
+      "category": "length",
+      "from": "mile",
+      "to": "m",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-mm",
+      "category": "length",
+      "from": "mile",
+      "to": "mm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-nauticalmile",
+      "category": "length",
+      "from": "mile",
+      "to": "nauticalmile",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mile-to-yard",
+      "category": "length",
+      "from": "mile",
+      "to": "yard",
+      "defaultValue": 1
+    },
+    {
+      "slug": "mm-to-cm",
+      "category": "length",
+      "from": "mm",
+      "to": "cm",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-foot",
+      "category": "length",
+      "from": "mm",
+      "to": "foot",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-inch",
+      "category": "length",
+      "from": "mm",
+      "to": "inch",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-km",
+      "category": "length",
+      "from": "mm",
+      "to": "km",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-m",
+      "category": "length",
+      "from": "mm",
+      "to": "m",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-mile",
+      "category": "length",
+      "from": "mm",
+      "to": "mile",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-nauticalmile",
+      "category": "length",
+      "from": "mm",
+      "to": "nauticalmile",
+      "defaultValue": 25
+    },
+    {
+      "slug": "mm-to-yard",
+      "category": "length",
+      "from": "mm",
+      "to": "yard",
+      "defaultValue": 25
+    },
+    {
+      "slug": "nauticalmile-to-cm",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "cm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-foot",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "foot",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-inch",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "inch",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-km",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "km",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-m",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "m",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-mile",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "mile",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-mm",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "mm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "nauticalmile-to-yard",
+      "category": "length",
+      "from": "nauticalmile",
+      "to": "yard",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-cm",
+      "category": "length",
+      "from": "yard",
+      "to": "cm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-foot",
+      "category": "length",
+      "from": "yard",
+      "to": "foot",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-inch",
+      "category": "length",
+      "from": "yard",
+      "to": "inch",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-km",
+      "category": "length",
+      "from": "yard",
+      "to": "km",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-m",
+      "category": "length",
+      "from": "yard",
+      "to": "m",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-mile",
+      "category": "length",
+      "from": "yard",
+      "to": "mile",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-mm",
+      "category": "length",
+      "from": "yard",
+      "to": "mm",
+      "defaultValue": 1
+    },
+    {
+      "slug": "yard-to-nauticalmile",
+      "category": "length",
+      "from": "yard",
+      "to": "nauticalmile",
+      "defaultValue": 1
+    },
+    {
+      "slug": "kmh-to-knots",
+      "category": "speed",
+      "from": "kmh",
+      "to": "knots",
+      "defaultValue": 100
+    },
+    {
+      "slug": "kmh-to-mph",
+      "category": "speed",
+      "from": "kmh",
+      "to": "mph",
+      "defaultValue": 100
+    },
+    {
+      "slug": "kmh-to-mps",
+      "category": "speed",
+      "from": "kmh",
+      "to": "mps",
+      "defaultValue": 100
+    },
+    {
+      "slug": "knots-to-kmh",
+      "category": "speed",
+      "from": "knots",
+      "to": "kmh",
+      "defaultValue": 30
+    },
+    {
+      "slug": "knots-to-mph",
+      "category": "speed",
+      "from": "knots",
+      "to": "mph",
+      "defaultValue": 30
+    },
+    {
+      "slug": "knots-to-mps",
+      "category": "speed",
+      "from": "knots",
+      "to": "mps",
+      "defaultValue": 30
+    },
+    {
+      "slug": "mph-to-kmh",
+      "category": "speed",
+      "from": "mph",
+      "to": "kmh",
+      "defaultValue": 60
+    },
+    {
+      "slug": "mph-to-knots",
+      "category": "speed",
+      "from": "mph",
+      "to": "knots",
+      "defaultValue": 60
+    },
+    {
+      "slug": "mph-to-mps",
+      "category": "speed",
+      "from": "mph",
+      "to": "mps",
+      "defaultValue": 60
+    },
+    {
+      "slug": "mps-to-kmh",
+      "category": "speed",
+      "from": "mps",
+      "to": "kmh",
+      "defaultValue": 10
+    },
+    {
+      "slug": "mps-to-knots",
+      "category": "speed",
+      "from": "mps",
+      "to": "knots",
+      "defaultValue": 10
+    },
+    {
+      "slug": "mps-to-mph",
+      "category": "speed",
+      "from": "mps",
+      "to": "mph",
+      "defaultValue": 10
+    },
+    {
+      "slug": "celsius-to-fahrenheit",
+      "category": "temperature",
+      "from": "celsius",
+      "to": "fahrenheit",
+      "defaultValue": 20
+    },
+    {
+      "slug": "celsius-to-kelvin",
+      "category": "temperature",
+      "from": "celsius",
+      "to": "kelvin",
+      "defaultValue": 20
+    },
+    {
+      "slug": "fahrenheit-to-celsius",
+      "category": "temperature",
+      "from": "fahrenheit",
+      "to": "celsius",
+      "defaultValue": 68
+    },
+    {
+      "slug": "fahrenheit-to-kelvin",
+      "category": "temperature",
+      "from": "fahrenheit",
+      "to": "kelvin",
+      "defaultValue": 68
+    },
+    {
+      "slug": "kelvin-to-celsius",
+      "category": "temperature",
+      "from": "kelvin",
+      "to": "celsius",
+      "defaultValue": 300
+    },
+    {
+      "slug": "kelvin-to-fahrenheit",
+      "category": "temperature",
+      "from": "kelvin",
+      "to": "fahrenheit",
+      "defaultValue": 300
+    },
+    {
+      "slug": "cup-to-floz",
+      "category": "volume",
+      "from": "cup",
+      "to": "floz",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-gallon",
+      "category": "volume",
+      "from": "cup",
+      "to": "gallon",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-liter",
+      "category": "volume",
+      "from": "cup",
+      "to": "liter",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-m3",
+      "category": "volume",
+      "from": "cup",
+      "to": "m3",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-ml",
+      "category": "volume",
+      "from": "cup",
+      "to": "ml",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-pint",
+      "category": "volume",
+      "from": "cup",
+      "to": "pint",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-quart",
+      "category": "volume",
+      "from": "cup",
+      "to": "quart",
+      "defaultValue": 2
+    },
+    {
+      "slug": "cup-to-tbsp",
+      "category": "volume",
+      "from": "cup",
+      "to": "tbsp",
+      "defaultValue": 2
+    },
+    {
+      "slug": "floz-to-cup",
+      "category": "volume",
+      "from": "floz",
+      "to": "cup",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-gallon",
+      "category": "volume",
+      "from": "floz",
+      "to": "gallon",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-liter",
+      "category": "volume",
+      "from": "floz",
+      "to": "liter",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-m3",
+      "category": "volume",
+      "from": "floz",
+      "to": "m3",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-ml",
+      "category": "volume",
+      "from": "floz",
+      "to": "ml",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-pint",
+      "category": "volume",
+      "from": "floz",
+      "to": "pint",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-quart",
+      "category": "volume",
+      "from": "floz",
+      "to": "quart",
+      "defaultValue": 12
+    },
+    {
+      "slug": "floz-to-tbsp",
+      "category": "volume",
+      "from": "floz",
+      "to": "tbsp",
+      "defaultValue": 12
+    },
+    {
+      "slug": "gallon-to-cup",
+      "category": "volume",
+      "from": "gallon",
+      "to": "cup",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-floz",
+      "category": "volume",
+      "from": "gallon",
+      "to": "floz",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-liter",
+      "category": "volume",
+      "from": "gallon",
+      "to": "liter",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-m3",
+      "category": "volume",
+      "from": "gallon",
+      "to": "m3",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-ml",
+      "category": "volume",
+      "from": "gallon",
+      "to": "ml",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-pint",
+      "category": "volume",
+      "from": "gallon",
+      "to": "pint",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-quart",
+      "category": "volume",
+      "from": "gallon",
+      "to": "quart",
+      "defaultValue": 1
+    },
+    {
+      "slug": "gallon-to-tbsp",
+      "category": "volume",
+      "from": "gallon",
+      "to": "tbsp",
+      "defaultValue": 1
+    },
+    {
+      "slug": "liter-to-cup",
+      "category": "volume",
+      "from": "liter",
+      "to": "cup",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-floz",
+      "category": "volume",
+      "from": "liter",
+      "to": "floz",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-gallon",
+      "category": "volume",
+      "from": "liter",
+      "to": "gallon",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-m3",
+      "category": "volume",
+      "from": "liter",
+      "to": "m3",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-ml",
+      "category": "volume",
+      "from": "liter",
+      "to": "ml",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-pint",
+      "category": "volume",
+      "from": "liter",
+      "to": "pint",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-quart",
+      "category": "volume",
+      "from": "liter",
+      "to": "quart",
+      "defaultValue": 4
+    },
+    {
+      "slug": "liter-to-tbsp",
+      "category": "volume",
+      "from": "liter",
+      "to": "tbsp",
+      "defaultValue": 4
+    },
+    {
+      "slug": "m3-to-cup",
+      "category": "volume",
+      "from": "m3",
+      "to": "cup",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-floz",
+      "category": "volume",
+      "from": "m3",
+      "to": "floz",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-gallon",
+      "category": "volume",
+      "from": "m3",
+      "to": "gallon",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-liter",
+      "category": "volume",
+      "from": "m3",
+      "to": "liter",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-ml",
+      "category": "volume",
+      "from": "m3",
+      "to": "ml",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-pint",
+      "category": "volume",
+      "from": "m3",
+      "to": "pint",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-quart",
+      "category": "volume",
+      "from": "m3",
+      "to": "quart",
+      "defaultValue": 1
+    },
+    {
+      "slug": "m3-to-tbsp",
+      "category": "volume",
+      "from": "m3",
+      "to": "tbsp",
+      "defaultValue": 1
+    },
+    {
+      "slug": "ml-to-cup",
+      "category": "volume",
+      "from": "ml",
+      "to": "cup",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-floz",
+      "category": "volume",
+      "from": "ml",
+      "to": "floz",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-gallon",
+      "category": "volume",
+      "from": "ml",
+      "to": "gallon",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-liter",
+      "category": "volume",
+      "from": "ml",
+      "to": "liter",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-m3",
+      "category": "volume",
+      "from": "ml",
+      "to": "m3",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-pint",
+      "category": "volume",
+      "from": "ml",
+      "to": "pint",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-quart",
+      "category": "volume",
+      "from": "ml",
+      "to": "quart",
+      "defaultValue": 250
+    },
+    {
+      "slug": "ml-to-tbsp",
+      "category": "volume",
+      "from": "ml",
+      "to": "tbsp",
+      "defaultValue": 250
+    },
+    {
+      "slug": "pint-to-cup",
+      "category": "volume",
+      "from": "pint",
+      "to": "cup",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-floz",
+      "category": "volume",
+      "from": "pint",
+      "to": "floz",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-gallon",
+      "category": "volume",
+      "from": "pint",
+      "to": "gallon",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-liter",
+      "category": "volume",
+      "from": "pint",
+      "to": "liter",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-m3",
+      "category": "volume",
+      "from": "pint",
+      "to": "m3",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-ml",
+      "category": "volume",
+      "from": "pint",
+      "to": "ml",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-quart",
+      "category": "volume",
+      "from": "pint",
+      "to": "quart",
+      "defaultValue": 2
+    },
+    {
+      "slug": "pint-to-tbsp",
+      "category": "volume",
+      "from": "pint",
+      "to": "tbsp",
+      "defaultValue": 2
+    },
+    {
+      "slug": "quart-to-cup",
+      "category": "volume",
+      "from": "quart",
+      "to": "cup",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-floz",
+      "category": "volume",
+      "from": "quart",
+      "to": "floz",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-gallon",
+      "category": "volume",
+      "from": "quart",
+      "to": "gallon",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-liter",
+      "category": "volume",
+      "from": "quart",
+      "to": "liter",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-m3",
+      "category": "volume",
+      "from": "quart",
+      "to": "m3",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-ml",
+      "category": "volume",
+      "from": "quart",
+      "to": "ml",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-pint",
+      "category": "volume",
+      "from": "quart",
+      "to": "pint",
+      "defaultValue": 1
+    },
+    {
+      "slug": "quart-to-tbsp",
+      "category": "volume",
+      "from": "quart",
+      "to": "tbsp",
+      "defaultValue": 1
+    },
+    {
+      "slug": "tbsp-to-cup",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "cup",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-floz",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "floz",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-gallon",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "gallon",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-liter",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "liter",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-m3",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "m3",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-ml",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "ml",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-pint",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "pint",
+      "defaultValue": 3
+    },
+    {
+      "slug": "tbsp-to-quart",
+      "category": "volume",
+      "from": "tbsp",
+      "to": "quart",
+      "defaultValue": 3
+    },
+    {
+      "slug": "g-to-kg",
+      "category": "weight",
+      "from": "g",
+      "to": "kg",
+      "defaultValue": 100
+    },
+    {
+      "slug": "g-to-lb",
+      "category": "weight",
+      "from": "g",
+      "to": "lb",
+      "defaultValue": 100
+    },
+    {
+      "slug": "g-to-mg",
+      "category": "weight",
+      "from": "g",
+      "to": "mg",
+      "defaultValue": 100
+    },
+    {
+      "slug": "g-to-oz",
+      "category": "weight",
+      "from": "g",
+      "to": "oz",
+      "defaultValue": 100
+    },
+    {
+      "slug": "g-to-stone",
+      "category": "weight",
+      "from": "g",
+      "to": "stone",
+      "defaultValue": 100
+    },
+    {
+      "slug": "g-to-ton",
+      "category": "weight",
+      "from": "g",
+      "to": "ton",
+      "defaultValue": 100
+    },
+    {
+      "slug": "kg-to-g",
+      "category": "weight",
+      "from": "kg",
+      "to": "g",
+      "defaultValue": 70
+    },
+    {
+      "slug": "kg-to-lb",
+      "category": "weight",
+      "from": "kg",
+      "to": "lb",
+      "defaultValue": 70
+    },
+    {
+      "slug": "kg-to-mg",
+      "category": "weight",
+      "from": "kg",
+      "to": "mg",
+      "defaultValue": 70
+    },
+    {
+      "slug": "kg-to-oz",
+      "category": "weight",
+      "from": "kg",
+      "to": "oz",
+      "defaultValue": 70
+    },
+    {
+      "slug": "kg-to-stone",
+      "category": "weight",
+      "from": "kg",
+      "to": "stone",
+      "defaultValue": 70
+    },
+    {
+      "slug": "kg-to-ton",
+      "category": "weight",
+      "from": "kg",
+      "to": "ton",
+      "defaultValue": 70
+    },
+    {
+      "slug": "lb-to-g",
+      "category": "weight",
+      "from": "lb",
+      "to": "g",
+      "defaultValue": 150
+    },
+    {
+      "slug": "lb-to-kg",
+      "category": "weight",
+      "from": "lb",
+      "to": "kg",
+      "defaultValue": 150
+    },
+    {
+      "slug": "lb-to-mg",
+      "category": "weight",
+      "from": "lb",
+      "to": "mg",
+      "defaultValue": 150
+    },
+    {
+      "slug": "lb-to-oz",
+      "category": "weight",
+      "from": "lb",
+      "to": "oz",
+      "defaultValue": 150
+    },
+    {
+      "slug": "lb-to-stone",
+      "category": "weight",
+      "from": "lb",
+      "to": "stone",
+      "defaultValue": 150
+    },
+    {
+      "slug": "lb-to-ton",
+      "category": "weight",
+      "from": "lb",
+      "to": "ton",
+      "defaultValue": 150
+    },
+    {
+      "slug": "mg-to-g",
+      "category": "weight",
+      "from": "mg",
+      "to": "g",
+      "defaultValue": 500
+    },
+    {
+      "slug": "mg-to-kg",
+      "category": "weight",
+      "from": "mg",
+      "to": "kg",
+      "defaultValue": 500
+    },
+    {
+      "slug": "mg-to-lb",
+      "category": "weight",
+      "from": "mg",
+      "to": "lb",
+      "defaultValue": 500
+    },
+    {
+      "slug": "mg-to-oz",
+      "category": "weight",
+      "from": "mg",
+      "to": "oz",
+      "defaultValue": 500
+    },
+    {
+      "slug": "mg-to-stone",
+      "category": "weight",
+      "from": "mg",
+      "to": "stone",
+      "defaultValue": 500
+    },
+    {
+      "slug": "mg-to-ton",
+      "category": "weight",
+      "from": "mg",
+      "to": "ton",
+      "defaultValue": 500
+    },
+    {
+      "slug": "oz-to-g",
+      "category": "weight",
+      "from": "oz",
+      "to": "g",
+      "defaultValue": 8
+    },
+    {
+      "slug": "oz-to-kg",
+      "category": "weight",
+      "from": "oz",
+      "to": "kg",
+      "defaultValue": 8
+    },
+    {
+      "slug": "oz-to-lb",
+      "category": "weight",
+      "from": "oz",
+      "to": "lb",
+      "defaultValue": 8
+    },
+    {
+      "slug": "oz-to-mg",
+      "category": "weight",
+      "from": "oz",
+      "to": "mg",
+      "defaultValue": 8
+    },
+    {
+      "slug": "oz-to-stone",
+      "category": "weight",
+      "from": "oz",
+      "to": "stone",
+      "defaultValue": 8
+    },
+    {
+      "slug": "oz-to-ton",
+      "category": "weight",
+      "from": "oz",
+      "to": "ton",
+      "defaultValue": 8
+    },
+    {
+      "slug": "stone-to-g",
+      "category": "weight",
+      "from": "stone",
+      "to": "g",
+      "defaultValue": 12
+    },
+    {
+      "slug": "stone-to-kg",
+      "category": "weight",
+      "from": "stone",
+      "to": "kg",
+      "defaultValue": 12
+    },
+    {
+      "slug": "stone-to-lb",
+      "category": "weight",
+      "from": "stone",
+      "to": "lb",
+      "defaultValue": 12
+    },
+    {
+      "slug": "stone-to-mg",
+      "category": "weight",
+      "from": "stone",
+      "to": "mg",
+      "defaultValue": 12
+    },
+    {
+      "slug": "stone-to-oz",
+      "category": "weight",
+      "from": "stone",
+      "to": "oz",
+      "defaultValue": 12
+    },
+    {
+      "slug": "stone-to-ton",
+      "category": "weight",
+      "from": "stone",
+      "to": "ton",
+      "defaultValue": 12
+    },
+    {
+      "slug": "ton-to-g",
+      "category": "weight",
+      "from": "ton",
+      "to": "g",
+      "defaultValue": 1
+    },
+    {
+      "slug": "ton-to-kg",
+      "category": "weight",
+      "from": "ton",
+      "to": "kg",
+      "defaultValue": 1
+    },
+    {
+      "slug": "ton-to-lb",
+      "category": "weight",
+      "from": "ton",
+      "to": "lb",
+      "defaultValue": 1
+    },
+    {
+      "slug": "ton-to-mg",
+      "category": "weight",
+      "from": "ton",
+      "to": "mg",
+      "defaultValue": 1
+    },
+    {
+      "slug": "ton-to-oz",
+      "category": "weight",
+      "from": "ton",
+      "to": "oz",
+      "defaultValue": 1
+    },
+    {
+      "slug": "ton-to-stone",
+      "category": "weight",
+      "from": "ton",
+      "to": "stone",
+      "defaultValue": 1
+    }
   ]
 }

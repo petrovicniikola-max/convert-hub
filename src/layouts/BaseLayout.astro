@@ -14,6 +14,7 @@ interface Props {
 const { title, description, path = '/', jsonLd } = Astro.props;
 const canonical = absoluteUrl(path);
 const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 ---
 
 <!doctype html>
@@ -31,6 +32,9 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <title>{title}</title>
+    {plausibleDomain && (
+      <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" />
+    )}
     {schemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
@@ -42,7 +46,10 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
           <span class="text-lg font-semibold tracking-tight text-slate-900">{en.siteName}</span>
           <span class="text-xs text-slate-500">{en.tagline}</span>
         </a>
-        <LangSwitcher />
+        <nav class="flex items-center gap-4">
+          <a href="/guides" class="text-sm text-slate-600 hover:text-blue-600">Guides</a>
+          <LangSwitcher />
+        </nav>
       </div>
     </header>
 
@@ -53,6 +60,9 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <footer class="mt-12 border-t border-slate-200 bg-white">
       <div class="mx-auto max-w-3xl px-4 py-6 text-center text-sm text-slate-500">
         <p>{en.footer.privacy}</p>
+        <p class="mt-2">
+          <a href="/guides" class="text-blue-600 hover:underline">Conversion guides</a>
+        </p>
         <p class="mt-1 text-xs text-slate-400">{en.footer.comingSoon}</p>
       </div>
     </footer>

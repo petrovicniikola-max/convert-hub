@@ -1,4 +1,5 @@
 import type { ConversionPair } from './pairs';
+import { getReversePair } from './pairs';
 import {
   buildConversionTable,
   convert,
@@ -21,6 +22,7 @@ export interface PageContent {
   exampleParagraph: string;
   tableTitle: string;
   reverseTableTitle: string;
+  reverseLinkText: string | null;
   tableRows: Array<{ input: number; output: string }>;
   reverseTableRows: Array<{ input: number; output: string }>;
   faq: Array<{ question: string; answer: string }>;
@@ -122,6 +124,28 @@ function getUseCase(category: CategoryId): string {
   }
 }
 
+function getDirectionContext(pair: ConversionPair): string {
+  const from = getUnitInfo(pair.category, pair.from);
+  const to = getUnitInfo(pair.category, pair.to);
+
+  const metricIds = ['mm', 'cm', 'm', 'km', 'g', 'kg', 'mg', 'liter', 'ml', 'm2', 'm3', 'kmh', 'mps'];
+  const imperialIds = ['inch', 'foot', 'yard', 'mile', 'oz', 'lb', 'stone', 'floz', 'cup', 'gallon', 'sqft', 'acre', 'mph'];
+
+  if (metricIds.includes(pair.from) && imperialIds.includes(pair.to)) {
+    return `This page converts ${from.name.toLowerCase()} to ${to.name.toLowerCase()} — the direction you need when a product, map, or recipe uses metric but you think in US or UK customary units.`;
+  }
+  if (imperialIds.includes(pair.from) && metricIds.includes(pair.to)) {
+    return `This page converts ${from.name.toLowerCase()} to ${to.name.toLowerCase()} — ideal when American or British measurements need to match metric specs, school assignments, or international standards.`;
+  }
+
+  const reverse = getReversePair(pair);
+  if (reverse) {
+    return `Looking for the opposite direction? See our dedicated ${to.name.toLowerCase()} to ${from.name.toLowerCase()} converter — same formula reversed, with content written for that direction.`;
+  }
+
+  return `This conversion is commonly used for ${getUseCase(pair.category)} when working across different measurement conventions.`;
+}
+
 function getSpecialExample(pair: ConversionPair, sampleResult: string): string {
   const from = getUnitInfo(pair.category, pair.from);
   const to = getUnitInfo(pair.category, pair.to);
@@ -143,6 +167,21 @@ function getSpecialExample(pair: ConversionPair, sampleResult: string): string {
   if (pair.slug === 'kmh-to-mph') {
     return `${val} km/h equals ${result} mph — about highway speed in many European countries compared to US speed limits.`;
   }
+  if (pair.slug === 'inch-to-cm') {
+    return `${val} inches equals ${result} cm — common for screen diagonals, lumber sizes, and height when metric is required.`;
+  }
+  if (pair.slug === 'lb-to-kg') {
+    return `${val} lb is about ${result} kg — useful for gym records, luggage weight limits, and medical charts outside the US.`;
+  }
+  if (pair.slug === 'fahrenheit-to-celsius') {
+    return `${val}°F is ${result}°C — handy for oven settings when following a European recipe or science worksheet.`;
+  }
+  if (pair.slug === 'gallon-to-liter') {
+    return `${val} US gallon is ${result} liters — about the size of a large milk jug when comparing fuel or container volumes.`;
+  }
+  if (pair.slug === 'mph-to-kmh') {
+    return `${val} mph equals ${result} km/h — essential when reading US speed limits while driving in a metric country.`;
+  }
 
   return `Converting ${val} ${from.symbol} gives ${result} ${to.symbol}. This is a practical reference when switching between ${from.name.toLowerCase()} and ${to.name.toLowerCase()} for ${getUseCase(pair.category)}.`;
 }
@@ -155,6 +194,7 @@ function buildFaq(pair: ConversionPair): Array<{ question: string; answer: strin
   const tenUnit = formatResult(convert(10, pair.from, pair.to, pair.category));
   const reverseFactor = formatResult(getConversionFactor(pair.to, pair.from, pair.category));
 
+  const reverse = getReversePair(pair);
   const items: Array<{ question: string; answer: string }> = [
     {
       question: `How many ${to.name.toLowerCase()}s are in 1 ${from.name.toLowerCase()}?`,
@@ -178,6 +218,15 @@ function buildFaq(pair: ConversionPair): Array<{ question: string; answer: strin
     },
   ];
 
+  if (reverse) {
+    const revFrom = getUnitInfo(pair.category, pair.to);
+    const revTo = getUnitInfo(pair.category, pair.from);
+    items.push({
+      question: `Is ${from.name.toLowerCase()} to ${to.name.toLowerCase()} the same as ${revFrom.name.toLowerCase()} to ${revTo.name.toLowerCase()}?`,
+      answer: `They are inverse operations. This page focuses on ${from.symbol} → ${to.symbol} with examples and tables for that direction. For ${revFrom.symbol} → ${revTo.symbol}, use our separate ${revFrom.name.toLowerCase()} to ${revTo.name.toLowerCase()} converter page.`,
+    });
+  }
+
   return items;
 }
 
@@ -196,8 +245,14 @@ export function buildPageContent(pair: ConversionPair): PageContent {
   const factor = formatResult(getConversionFactor(pair.from, pair.to, pair.category));
   const formula = getFormula(pair);
 
+  const reverse = getReversePair(pair);
+  const reverseLinkText = reverse
+    ? `Need ${to.name.toLowerCase()} to ${from.name.toLowerCase()} instead? Try our ${to.name} to ${from.name} converter.`
+    : null;
+
   const introParagraphs = [
     `${from.name} (${from.symbol}) and ${to.name} (${to.symbol}) both measure ${categoryLabel.toLowerCase()}. Whether you are studying, traveling, cooking, or working on a project, converting between them should be fast and accurate.`,
+    getDirectionContext(pair),
     `The standard relationship used on this page means that 1 ${from.name.toLowerCase()} equals ${factor} ${to.symbol}. Enter any number in the calculator — use the swap button to reverse the direction without leaving the page.`,
     getSpecialExample(pair, factor),
   ];
@@ -215,6 +270,7 @@ export function buildPageContent(pair: ConversionPair): PageContent {
     exampleParagraph: getSpecialExample(pair, factor),
     tableTitle: `${fromShort} to ${toShort} conversion table`,
     reverseTableTitle: `${toShort} to ${fromShort} conversion table`,
+    reverseLinkText,
     tableRows: buildConversionTable(
       pair.from,
       pair.to,

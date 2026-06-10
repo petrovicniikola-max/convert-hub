@@ -32,13 +32,21 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 
 | Item | Value |
 |------|--------|
-| Production URL | https://convert-hub.petrovicniikola.workers.dev |
-| `astro.config.mjs` → `site` | https://convert-hub.petrovicniikola.workers.dev |
-| `src/lib/seo.ts` → `SITE_URL` | https://convert-hub.petrovicniikola.workers.dev |
-| `public/robots.txt` → Sitemap | https://convert-hub.petrovicniikola.workers.dev/sitemap-index.xml |
+| Production URL | https://convert-hub.net |
+| Workers fallback | https://convert-hub.petrovicniikola.workers.dev |
+| `astro.config.mjs` → `site` | https://convert-hub.net |
+| `src/lib/seo.ts` → `SITE_URL` | https://convert-hub.net |
+| `public/robots.txt` → Sitemap | https://convert-hub.net/sitemap-index.xml |
 
 ## MVP status
 
 - MVP-0: done
 - MVP-1: done (50 converters, 6 categories)
-- MVP-2: pending
+- MVP-2: done (216 converters, 5 guides, 229 pages total)
+- MVP-3: pending (DE + ES)
+
+## Analytics env (Cloudflare)
+
+| Variable | Example | Purpose |
+|----------|---------|---------|
+| `PUBLIC_PLAUSIBLE_DOMAIN` | `convert-hub.net` | Enables Plausible script in `BaseLayout.astro` |

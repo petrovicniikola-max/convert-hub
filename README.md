@@ -2,51 +2,69 @@
 
 Multilingual unit converter site (long-tail SEO). Built with Astro + Tailwind.
 
-## MVP-1 status
+## MVP-2 status
 
-- [x] 50 English conversion pages (`/convert/[slug]`)
+- [x] 216 English conversion pages (`/convert/[slug]`)
 - [x] 6 category hubs (`/convert/length`, `/convert/weight`, …)
-- [x] Homepage with categories + popular converters
-- [x] Dynamic page content (intro, formula, tables, FAQ, related links)
-- [x] Bidirectional converter widget with swap
-- [x] Sitemap (`@astrojs/sitemap`)
+- [x] 5 guide articles (`/guides/*`)
+- [x] Reverse-pair unique content (direction-specific intro + FAQ)
+- [x] Plausible analytics hook (`PUBLIC_PLAUSIBLE_DOMAIN` env var)
+- [x] Sitemap (`@astrojs/sitemap`) — **229 pages** total
 - [x] JSON-LD (WebApplication + FAQ per page)
 
 ## Commands
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm test         # Vitest
-npm run build    # static output in dist/
-npm run preview  # preview production build
+npm run dev          # http://localhost:4321
+npm test             # Vitest
+npm run build        # static output in dist/
+npm run generate:pairs  # regenerate conversion-pairs.json from units.json
 ```
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Workers)
 
-1. Push repo to GitHub
-2. Cloudflare Pages → Connect repo → root directory: `convert-hub`
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. Set custom domain and update `site` in `astro.config.mjs`
+Git push → auto build on Cloudflare. See `PROJECT.md` for settings.
+
+Production URL: **https://convert-hub.net**
+
+## Analytics (Plausible)
+
+In Cloudflare project settings, add environment variable:
+
+```
+PUBLIC_PLAUSIBLE_DOMAIN=convert-hub.net
+```
+
+Redeploy after adding. Script loads only when this variable is set.
+
+## Bing Webmaster Tools (manual)
+
+1. Go to [Bing Webmaster Tools](https://www.bing.com/webmasters)
+2. Add site `https://convert-hub.net`
+3. Verify via DNS (same Cloudflare zone) or import from Google Search Console
+4. Submit sitemap: `https://convert-hub.net/sitemap-index.xml`
 
 ## Project structure
 
 ```
 data/
   units.json              # unit definitions (6 categories)
-  conversion-pairs.json   # 50 published conversion pairs
+  conversion-pairs.json     # 216 published conversion pairs
+scripts/
+  generate-pairs.mjs      # build all directed pairs from units.json
 src/lib/
   convert.ts              # conversion engine
-  pairs.ts                # pair helpers
+  pairs.ts                # pair helpers + reverse pair
   page-content.ts         # SEO content generation
-  categories.ts           # category metadata
+  guides.ts               # 5 blog/guide articles
 src/pages/
   index.astro             # homepage
   convert/[slug].astro    # conversion pages
   convert/[category]/     # category hubs
+  guides/                 # guide index + articles
 ```
 
-## Next (MVP-2 — after approval)
+## Next (MVP-3 — after approval)
 
-200+ EN pages, blog guides, analytics, Core Web Vitals audit.
+DE + ES locales, hreflang, top 50 pairs × 2 languages.
