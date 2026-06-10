@@ -14,7 +14,7 @@ interface Props {
 const { title, description, path = '/', jsonLd } = Astro.props;
 const canonical = absoluteUrl(path);
 const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
-const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 ---
 
 <!doctype html>
@@ -32,8 +32,8 @@ const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <title>{title}</title>
-    {plausibleDomain && (
-      <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" />
+    {umamiWebsiteId && (
+      <script defer src="https://cloud.umami.is/script.js" data-website-id={umamiWebsiteId} />
     )}
     {schemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />

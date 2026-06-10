@@ -8,7 +8,7 @@ Multilingual unit converter site (long-tail SEO). Built with Astro + Tailwind.
 - [x] 6 category hubs (`/convert/length`, `/convert/weight`, …)
 - [x] 5 guide articles (`/guides/*`)
 - [x] Reverse-pair unique content (direction-specific intro + FAQ)
-- [x] Plausible analytics hook (`PUBLIC_PLAUSIBLE_DOMAIN` env var)
+- [x] Umami Cloud analytics (`PUBLIC_UMAMI_WEBSITE_ID` env var)
 - [x] Sitemap (`@astrojs/sitemap`) — **229 pages** total
 - [x] JSON-LD (WebApplication + FAQ per page)
 
@@ -28,15 +28,15 @@ Git push → auto build on Cloudflare. See `PROJECT.md` for settings.
 
 Production URL: **https://convert-hub.net**
 
-## Analytics (Plausible)
+## Analytics (Umami Cloud)
 
-In Cloudflare project settings, add environment variable:
+In Cloudflare project settings → **Variables**, add:
 
 ```
-PUBLIC_PLAUSIBLE_DOMAIN=convert-hub.net
+PUBLIC_UMAMI_WEBSITE_ID=a03f020c-6e13-46e9-b656-051e5a34cd0c
 ```
 
-Redeploy after adding. Script loads only when this variable is set.
+Redeploy after adding. Script loads only when this variable is set (no tracking in local dev).
 
 ## Bing Webmaster Tools (manual)
 

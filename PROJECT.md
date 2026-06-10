@@ -49,4 +49,4 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 
 | Variable | Example | Purpose |
 |----------|---------|---------|
-| `PUBLIC_PLAUSIBLE_DOMAIN` | `convert-hub.net` | Enables Plausible script in `BaseLayout.astro` |
+| `PUBLIC_UMAMI_WEBSITE_ID` | `a03f020c-6e13-46e9-b656-051e5a34cd0c` | Enables Umami script in `BaseLayout.astro` |
