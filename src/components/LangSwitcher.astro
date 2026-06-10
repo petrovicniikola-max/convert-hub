@@ -1,23 +1,19 @@
 ---
-import { localeLabels, locales } from '../i18n/config';
+import { defaultLocale } from '../i18n/config';
+
+// Show only active locales. Add de, fr, es, hr, sr when i18n sprint ships.
+const activeLocales = [defaultLocale] as const;
 ---
 
 <div class="flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 p-1 text-xs" aria-label="Language">
-  {locales.map((locale) => {
-    const isActive = locale === 'en';
-    const disabled = locale !== 'en';
-    return (
+  {
+    activeLocales.map((locale) => (
       <span
-        class:list={[
-          'rounded-md px-2 py-1 font-medium',
-          isActive && 'bg-white text-slate-900 shadow-sm',
-          !isActive && 'cursor-not-allowed text-slate-400',
-        ]}
-        title={disabled ? 'Coming soon' : localeLabels[locale]}
-        aria-current={isActive ? 'true' : undefined}
+        class="rounded-md bg-white px-2 py-1 font-medium text-slate-900 shadow-sm"
+        aria-current="true"
       >
         {locale.toUpperCase()}
       </span>
-    );
-  })}
+    ))
+  }
 </div>
