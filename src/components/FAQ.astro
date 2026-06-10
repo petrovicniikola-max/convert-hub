@@ -1,0 +1,29 @@
+---
+interface Item {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="mt-10" aria-labelledby="faq-heading">
+  <h2 id="faq-heading" class="mb-4 text-xl font-semibold text-slate-900">Frequently asked questions</h2>
+  <div class="space-y-3">
+    {items.map((item) => (
+      <details class="group rounded-xl border border-slate-200 bg-white open:shadow-sm">
+        <summary class="cursor-pointer list-none px-4 py-3 font-medium text-slate-900 marker:content-none [&::-webkit-details-marker]:hidden">
+          <span class="flex items-center justify-between gap-2">
+            {item.question}
+            <span class="text-slate-400 transition group-open:rotate-45">+</span>
+          </span>
+        </summary>
+        <p class="border-t border-slate-100 px-4 py-3 text-sm leading-relaxed text-slate-600">{item.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>

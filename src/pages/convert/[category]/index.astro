@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { categories, getCategoryMeta } from '../../../lib/categories';
+import { getPairsByCategory } from '../../../lib/pairs';
+import { pairLinkLabel } from '../../../lib/page-content';
+import { getUnitInfo } from '../../../lib/convert';
+import { buildTitle } from '../../../lib/seo';
+import type { CategoryId } from '../../../lib/convert';
+
+export function getStaticPaths() {
+  return categories.map((cat) => ({
+    params: { category: cat.id },
+    props: { categoryId: cat.id },
+  }));
+}
+
+interface Props {
+  categoryId: CategoryId;
+}
+
+const { categoryId } = Astro.props;
+const meta = getCategoryMeta(categoryId)!;
+const pairs = getPairsByCategory(categoryId);
+const title = buildTitle(`${meta.label} Converters`);
+const description = `Free ${meta.label.toLowerCase()} unit converters. ${meta.description} Instant, private, browser-based.`;
+---
+
+<BaseLayout title={title} description={description} path={meta.path}>
+  <article>
+    <nav class="mb-4 text-sm text-slate-500" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-700">{meta.label}</span>
+    </nav>
+
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{meta.label} converters</h1>
+      <p class="mt-3 text-lg text-slate-600">{meta.description}</p>
+      <p class="mt-2 text-sm text-slate-500">{pairs.length} converters available</p>
+    </header>
+
+    <ul class="grid gap-2 sm:grid-cols-2">
+      {
+        pairs.map((pair) => {
+          const from = getUnitInfo(pair.category, pair.from);
+          const to = getUnitInfo(pair.category, pair.to);
+          return (
+            <li>
+              <a
+                href={`/convert/${pair.slug}`}
+                class="flex flex-col rounded-xl border border-slate-200 bg-white px-4 py-3 transition hover:border-blue-300 hover:shadow-sm"
+              >
+                <span class="font-semibold text-slate-900">
+                  {from.name} to {to.name}
+                </span>
+                <span class="mt-0.5 text-sm text-slate-500">{pairLinkLabel(pair)}</span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <section class="mt-10">
+      <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Other categories</h2>
+      <ul class="flex flex-wrap gap-2">
+        {
+          categories
+            .filter((c) => c.id !== categoryId)
+            .map((c) => (
+              <li>
+                <a
+                  href={c.path}
+                  class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 hover:border-blue-300 hover:text-blue-700"
+                >
+                  {c.label}
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,20 @@
+{
+  "siteName": "ConvertHub",
+  "tagline": "Fast, private unit conversions in your browser",
+  "nav": {
+    "home": "Home",
+    "length": "Length"
+  },
+  "converter": {
+    "value": "Value",
+    "from": "From",
+    "to": "To",
+    "result": "Result",
+    "swap": "Swap conversion direction",
+    "instant": "runs in your browser, no server"
+  },
+  "footer": {
+    "privacy": "All conversions run locally in your browser. No uploads, no accounts.",
+    "comingSoon": "More languages coming soon."
+  }
+}

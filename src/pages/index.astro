@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { categories } from '../lib/categories';
+import { conversionPairs } from '../lib/pairs';
+import { pairLinkLabel } from '../lib/page-content';
+import { getUnitInfo } from '../lib/convert';
+import { buildTitle } from '../lib/seo';
+
+const title = buildTitle('Free Unit Converters');
+const description =
+  'ConvertHub — fast, private unit converters for length, weight, temperature, volume, area, and speed. Runs in your browser. No signup.';
+
+const popularSlugs = [
+  'cm-to-inch',
+  'kg-to-lb',
+  'celsius-to-fahrenheit',
+  'liter-to-gallon',
+  'km-to-mile',
+  'mph-to-kmh',
+  'm2-to-sqft',
+  'lb-to-kg',
+  'inch-to-cm',
+  'fahrenheit-to-celsius',
+  'gallon-to-liter',
+  'foot-to-m',
+];
+
+const popular = popularSlugs
+  .map((slug) => conversionPairs.find((p) => p.slug === slug))
+  .filter((p): p is (typeof conversionPairs)[number] => Boolean(p));
+---
+
+<BaseLayout title={title} description={description} path="/">
+  <section class="text-center">
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+      Unit converters that respect your privacy
+    </h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+      {conversionPairs.length} free converters for length, weight, temperature, volume, area, and speed.
+      Every calculation runs locally — no accounts, no uploads.
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Browse by category</h2>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {
+        categories.map((cat) => {
+          const count = conversionPairs.filter((p) => p.category === cat.id).length;
+          return (
+            <a
+              href={cat.path}
+              class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
+            >
+              <h3 class="font-semibold text-slate-900">{cat.label}</h3>
+              <p class="mt-1 text-sm text-slate-600">{cat.description}</p>
+              <p class="mt-2 text-xs font-medium text-blue-600">{count} converters →</p>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Popular converters</h2>
+    <ul class="grid gap-2 sm:grid-cols-2">
+      {
+        popular.map((pair) => {
+          const from = getUnitInfo(pair.category, pair.from);
+          const to = getUnitInfo(pair.category, pair.to);
+          return (
+            <li>
+              <a
+                href={`/convert/${pair.slug}`}
+                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 transition hover:border-blue-300 hover:bg-blue-50/50"
+              >
+                <div>
+                  <span class="font-medium text-slate-900">
+                    {from.name} to {to.name}
+                  </span>
+                  <p class="text-xs text-slate-500">{pairLinkLabel(pair)}</p>
+                </div>
+                <span class="text-blue-600" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </section>
+</BaseLayout>

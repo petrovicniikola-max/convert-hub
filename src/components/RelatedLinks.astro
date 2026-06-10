@@ -1,0 +1,36 @@
+---
+import type { ConversionPair } from '../lib/pairs';
+import { pairLinkLabel } from '../lib/page-content';
+
+interface Props {
+  pairs: ConversionPair[];
+  title?: string;
+}
+
+const { pairs, title = 'Related converters' } = Astro.props;
+---
+
+{
+  pairs.length > 0 && (
+    <section class="mt-10" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="mb-4 text-xl font-semibold text-slate-900">
+        {title}
+      </h2>
+      <ul class="grid gap-2 sm:grid-cols-2">
+        {pairs.map((pair) => (
+          <li>
+            <a
+              href={`/convert/${pair.slug}`}
+              class="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm transition hover:border-blue-300 hover:bg-blue-50/50"
+            >
+              <span class="font-medium text-slate-800">{pairLinkLabel(pair)}</span>
+              <span class="text-blue-600" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

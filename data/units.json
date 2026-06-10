@@ -1,0 +1,70 @@
+{
+  "categories": {
+    "length": {
+      "base": "m",
+      "units": {
+        "mm": { "toBase": 0.001, "symbol": "mm", "name": "Millimeter", "plural": "millimeters" },
+        "cm": { "toBase": 0.01, "symbol": "cm", "name": "Centimeter", "plural": "centimeters" },
+        "m": { "toBase": 1, "symbol": "m", "name": "Meter", "plural": "meters" },
+        "km": { "toBase": 1000, "symbol": "km", "name": "Kilometer", "plural": "kilometers" },
+        "inch": { "toBase": 0.0254, "symbol": "in", "name": "Inch", "plural": "inches" },
+        "foot": { "toBase": 0.3048, "symbol": "ft", "name": "Foot", "plural": "feet" },
+        "yard": { "toBase": 0.9144, "symbol": "yd", "name": "Yard", "plural": "yards" },
+        "mile": { "toBase": 1609.344, "symbol": "mi", "name": "Mile", "plural": "miles" },
+        "nauticalmile": { "toBase": 1852, "symbol": "nmi", "name": "Nautical mile", "plural": "nautical miles" }
+      }
+    },
+    "weight": {
+      "base": "kg",
+      "units": {
+        "mg": { "toBase": 0.000001, "symbol": "mg", "name": "Milligram", "plural": "milligrams" },
+        "g": { "toBase": 0.001, "symbol": "g", "name": "Gram", "plural": "grams" },
+        "kg": { "toBase": 1, "symbol": "kg", "name": "Kilogram", "plural": "kilograms" },
+        "oz": { "toBase": 0.0283495, "symbol": "oz", "name": "Ounce", "plural": "ounces" },
+        "lb": { "toBase": 0.453592, "symbol": "lb", "name": "Pound", "plural": "pounds" },
+        "stone": { "toBase": 6.35029, "symbol": "st", "name": "Stone", "plural": "stones" },
+        "ton": { "toBase": 1000, "symbol": "t", "name": "Metric ton", "plural": "metric tons" }
+      }
+    },
+    "temperature": {
+      "base": "celsius",
+      "units": {
+        "celsius": { "symbol": "°C", "name": "Celsius", "plural": "degrees Celsius" },
+        "fahrenheit": { "symbol": "°F", "name": "Fahrenheit", "plural": "degrees Fahrenheit" },
+        "kelvin": { "symbol": "K", "name": "Kelvin", "plural": "kelvin" }
+      }
+    },
+    "volume": {
+      "base": "liter",
+      "units": {
+        "ml": { "toBase": 0.001, "symbol": "ml", "name": "Milliliter", "plural": "milliliters" },
+        "liter": { "toBase": 1, "symbol": "L", "name": "Liter", "plural": "liters" },
+        "m3": { "toBase": 1000, "symbol": "m³", "name": "Cubic meter", "plural": "cubic meters" },
+        "floz": { "toBase": 0.0295735, "symbol": "fl oz", "name": "Fluid ounce", "plural": "fluid ounces" },
+        "cup": { "toBase": 0.236588, "symbol": "cup", "name": "US cup", "plural": "cups" },
+        "tbsp": { "toBase": 0.0147868, "symbol": "tbsp", "name": "Tablespoon", "plural": "tablespoons" },
+        "pint": { "toBase": 0.473176, "symbol": "pt", "name": "US pint", "plural": "pints" },
+        "quart": { "toBase": 0.946353, "symbol": "qt", "name": "US quart", "plural": "quarts" },
+        "gallon": { "toBase": 3.78541, "symbol": "gal", "name": "US gallon", "plural": "gallons" }
+      }
+    },
+    "area": {
+      "base": "m2",
+      "units": {
+        "m2": { "toBase": 1, "symbol": "m²", "name": "Square meter", "plural": "square meters" },
+        "sqft": { "toBase": 0.092903, "symbol": "ft²", "name": "Square foot", "plural": "square feet" },
+        "acre": { "toBase": 4046.86, "symbol": "ac", "name": "Acre", "plural": "acres" },
+        "hectare": { "toBase": 10000, "symbol": "ha", "name": "Hectare", "plural": "hectares" }
+      }
+    },
+    "speed": {
+      "base": "mps",
+      "units": {
+        "mps": { "toBase": 1, "symbol": "m/s", "name": "Meter per second", "plural": "meters per second" },
+        "kmh": { "toBase": 0.277778, "symbol": "km/h", "name": "Kilometer per hour", "plural": "kilometers per hour" },
+        "mph": { "toBase": 0.44704, "symbol": "mph", "name": "Mile per hour", "plural": "miles per hour" },
+        "knots": { "toBase": 0.514444, "symbol": "kn", "name": "Knot", "plural": "knots" }
+      }
+    }
+  }
+}

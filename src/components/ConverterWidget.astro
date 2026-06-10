@@ -1,0 +1,194 @@
+---
+import type { CategoryId } from '../lib/convert';
+import { getUnitInfo } from '../lib/convert';
+import en from '../i18n/ui/en.json';
+
+interface Props {
+  category: CategoryId;
+  fromUnit: string;
+  toUnit: string;
+  defaultValue?: number;
+}
+
+const { category, fromUnit, toUnit, defaultValue = 1 } = Astro.props;
+
+const from = getUnitInfo(category, fromUnit);
+const to = getUnitInfo(category, toUnit);
+
+const unitMeta = JSON.stringify({
+  [fromUnit]: { name: from.name, symbol: from.symbol },
+  [toUnit]: { name: to.name, symbol: to.symbol },
+});
+---
+
+<div
+  class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+  data-converter
+  data-category={category}
+  data-from={fromUnit}
+  data-to={toUnit}
+  data-units={unitMeta}
+>
+  <div class="grid gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+    <div class="min-w-0">
+      <div class="mb-2">
+        <span class="text-sm font-medium text-slate-500">{en.converter.value}</span>
+      </div>
+      <p class="mb-2 text-base font-semibold text-slate-800" data-converter-from-label>
+        {from.name}
+        <span class="ml-1.5 inline-flex rounded-md bg-slate-100 px-2 py-0.5 text-sm font-medium text-slate-600">
+          {from.symbol}
+        </span>
+      </p>
+      <input
+        type="number"
+        inputmode="decimal"
+        step="any"
+        value={defaultValue}
+        data-converter-input
+        aria-label={`Value in ${from.name}`}
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-xl font-semibold tabular-nums text-slate-900 outline-none transition-shadow ring-blue-500 placeholder:text-slate-300 focus:border-blue-500 focus:ring-2"
+      />
+    </div>
+
+    <div class="flex justify-center sm:pt-6">
+      <button
+        type="button"
+        data-converter-swap
+        class="group flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-500 shadow-sm transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 hover:shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-95"
+        aria-label={en.converter.swap}
+        title={en.converter.swap}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-5 w-5 transition duration-300 group-hover:rotate-180"
+          aria-hidden="true"
+        >
+          <path d="M7 16V4M7 4L3 8M7 4l4 4" />
+          <path d="M17 8v12M17 20l4-4M17 20l-4-4" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="min-w-0">
+      <div class="mb-2">
+        <span class="text-sm font-medium text-slate-500">{en.converter.result}</span>
+      </div>
+      <p class="mb-2 text-base font-semibold text-slate-800" data-converter-to-label>
+        {to.name}
+        <span class="ml-1.5 inline-flex rounded-md bg-blue-100 px-2 py-0.5 text-sm font-medium text-blue-700">
+          {to.symbol}
+        </span>
+      </p>
+      <output
+        data-converter-output
+        aria-live="polite"
+        class="flex min-h-[52px] w-full items-center rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 px-4 py-3.5 text-xl font-semibold tabular-nums text-blue-900"
+      >
+        —
+      </output>
+    </div>
+  </div>
+
+  <p class="mt-5 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-center text-xs text-slate-400">
+    <span data-converter-direction-text>{from.symbol} → {to.symbol}</span>
+    <span class="hidden sm:inline text-slate-300">·</span>
+    <span>{en.converter.instant}</span>
+  </p>
+</div>
+
+<script>
+  import { convert, formatResult } from '../lib/convert';
+  import type { CategoryId } from '../lib/convert';
+
+  type UnitMeta = { name: string; symbol: string };
+
+  function renderUnitLabel(el: HTMLElement, name: string, symbol: string, variant: 'from' | 'to') {
+    const badgeClass =
+      variant === 'from'
+        ? 'ml-1.5 inline-flex rounded-md bg-slate-100 px-2 py-0.5 text-sm font-medium text-slate-600'
+        : 'ml-1.5 inline-flex rounded-md bg-blue-100 px-2 py-0.5 text-sm font-medium text-blue-700';
+    el.innerHTML = `${name}<span class="${badgeClass}">${symbol}</span>`;
+  }
+
+  function initConverter(root: HTMLElement) {
+    const category = root.dataset.category as CategoryId;
+    const units = JSON.parse(root.dataset.units ?? '{}') as Record<string, UnitMeta>;
+
+    let currentFrom = root.dataset.from!;
+    let currentTo = root.dataset.to!;
+
+    const input = root.querySelector<HTMLInputElement>('[data-converter-input]')!;
+    const output = root.querySelector<HTMLElement>('[data-converter-output]')!;
+    const swapBtn = root.querySelector<HTMLButtonElement>('[data-converter-swap]')!;
+    const fromLabel = root.querySelector<HTMLElement>('[data-converter-from-label]')!;
+    const toLabel = root.querySelector<HTMLElement>('[data-converter-to-label]')!;
+    const directionText = root.querySelector<HTMLElement>('[data-converter-direction-text]')!;
+
+    function getMeta(unitId: string): UnitMeta {
+      return units[unitId] ?? { name: unitId, symbol: unitId };
+    }
+
+    let fromMeta = getMeta(currentFrom);
+    let toMeta = getMeta(currentTo);
+
+    function updateDirectionHint() {
+      directionText.textContent = `${fromMeta.symbol} → ${toMeta.symbol}`;
+      input.setAttribute('aria-label', `Value in ${fromMeta.name}`);
+    }
+
+    function update() {
+      const raw = input.value.trim();
+      if (raw === '' || raw === '-') {
+        output.textContent = '—';
+        return;
+      }
+      const value = Number(raw);
+      if (!Number.isFinite(value)) {
+        output.textContent = '—';
+        return;
+      }
+      try {
+        const result = convert(value, currentFrom, currentTo, category);
+        output.textContent = formatResult(result);
+      } catch {
+        output.textContent = '—';
+      }
+    }
+
+    function swap() {
+      const resultText = output.textContent?.trim();
+      const hadResult = resultText && resultText !== '—';
+      const previousResult = hadResult ? Number(resultText) : null;
+
+      [currentFrom, currentTo] = [currentTo, currentFrom];
+      fromMeta = getMeta(currentFrom);
+      toMeta = getMeta(currentTo);
+
+      renderUnitLabel(fromLabel, fromMeta.name, fromMeta.symbol, 'from');
+      renderUnitLabel(toLabel, toMeta.name, toMeta.symbol, 'to');
+      updateDirectionHint();
+
+      if (hadResult && Number.isFinite(previousResult)) {
+        input.value = String(previousResult);
+      }
+
+      root.dataset.from = currentFrom;
+      root.dataset.to = currentTo;
+
+      update();
+    }
+
+    input.addEventListener('input', update);
+    swapBtn.addEventListener('click', swap);
+    update();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-converter]').forEach(initConverter);
+</script>
