@@ -1,0 +1,6 @@
+# Cloudflare Workers static assets — serves the Astro `dist/` folder after `npm run build`
+name = "convert-hub"
+compatibility_date = "2024-11-01"
+
+[assets]
+directory = "./dist"

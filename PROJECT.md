@@ -11,14 +11,22 @@ Canonical sources for this project (do not confuse with parent `C:\Course` repo)
 | **Build** | `npm run build` → output `dist/` |
 | **Deploy** | Cloudflare Pages (Git integration) |
 
-## Cloudflare Pages settings
+## Cloudflare deploy settings (GitHub → Workers & Pages UI)
+
+Cloudflare may show a **Worker** setup (with Deploy command) instead of classic Pages.
+That works with `wrangler.toml` in this repo — it serves the static `dist/` folder.
 
 | Setting | Value |
 |---------|--------|
-| Root directory | *(empty — repo root)* |
+| Repository | `petrovicniikola-max/convert-hub` |
+| Branch | `main` |
+| Project name | `convert-hub` |
 | Build command | `npm run build` |
-| Build output | `dist` |
-| Node version | `22` (`NODE_VERSION` env var) |
+| Deploy command | `npx wrangler deploy` |
+| Non-production deploy | `npx wrangler versions upload` |
+| Path | `/` |
+| Environment variable | `NODE_VERSION` = `22` |
+| API token name | `convert-hub-deploy` (any name — auto-created) |
 
 ## URLs (update after deploy)
 
