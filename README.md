@@ -30,13 +30,15 @@ Production URL: **https://convert-hub.net**
 
 ## Analytics (Umami Cloud)
 
-In Cloudflare project settings → **Variables**, add:
+Umami website ID is set in `BaseLayout.astro` (public, baked in at build time).
+
+Static-only Cloudflare Workers cannot use runtime environment variables. Optional override for local/preview builds:
 
 ```
-PUBLIC_UMAMI_WEBSITE_ID=a03f020c-6e13-46e9-b656-051e5a34cd0c
+PUBLIC_UMAMI_WEBSITE_ID=your-id npm run build
 ```
 
-Redeploy after adding. Script loads only when this variable is set (no tracking in local dev).
+Set `PUBLIC_UMAMI_WEBSITE_ID=` (empty) to disable tracking in a custom build.
 
 ## Bing Webmaster Tools (manual)
 

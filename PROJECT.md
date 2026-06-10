@@ -45,8 +45,6 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 - MVP-2: done (216 converters, 5 guides, 229 pages total)
 - MVP-3: pending (DE + ES)
 
-## Analytics env (Cloudflare)
+## Analytics (Umami)
 
-| Variable | Example | Purpose |
-|----------|---------|---------|
-| `PUBLIC_UMAMI_WEBSITE_ID` | `a03f020c-6e13-46e9-b656-051e5a34cd0c` | Enables Umami script in `BaseLayout.astro` |
+Umami ID is embedded in `BaseLayout.astro` at build time (`a03f020c-…`). Static Workers do not support runtime env vars on Cloudflare.

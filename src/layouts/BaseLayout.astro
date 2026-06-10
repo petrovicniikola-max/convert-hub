@@ -14,7 +14,8 @@ interface Props {
 const { title, description, path = '/', jsonLd } = Astro.props;
 const canonical = absoluteUrl(path);
 const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
-const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const umamiWebsiteId =
+  import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? 'a03f020c-6e13-46e9-b656-051e5a34cd0c';
 ---
 
 <!doctype html>
