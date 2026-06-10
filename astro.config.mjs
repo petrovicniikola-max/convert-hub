@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://converthub.pages.dev',
+  site: 'https://convert-hub.petrovicniikola.workers.dev',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

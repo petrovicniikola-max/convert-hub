@@ -6,7 +6,7 @@ export interface PageMeta {
 }
 
 const SITE_NAME = 'ConvertHub';
-const SITE_URL = 'https://converthub.pages.dev'; // replace with custom domain later
+const SITE_URL = 'https://convert-hub.petrovicniikola.workers.dev';
 
 export function absoluteUrl(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;

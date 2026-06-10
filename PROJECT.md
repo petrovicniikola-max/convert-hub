@@ -32,10 +32,10 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 
 | Item | Value |
 |------|--------|
-| Production URL | `https://_____.pages.dev` *(fill in)* |
-| `astro.config.mjs` → `site` | must match production URL |
-| `src/lib/seo.ts` → `SITE_URL` | must match production URL |
-| `public/robots.txt` → Sitemap | must match production URL |
+| Production URL | https://convert-hub.petrovicniikola.workers.dev |
+| `astro.config.mjs` → `site` | https://convert-hub.petrovicniikola.workers.dev |
+| `src/lib/seo.ts` → `SITE_URL` | https://convert-hub.petrovicniikola.workers.dev |
+| `public/robots.txt` → Sitemap | https://convert-hub.petrovicniikola.workers.dev/sitemap-index.xml |
 
 ## MVP status
 
