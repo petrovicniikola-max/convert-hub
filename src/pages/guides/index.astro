@@ -1,4 +1,5 @@
 ﻿---
+import BackLink from '../../components/BackLink.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { guides } from '../../lib/guides';
 import { buildTitle } from '../../lib/seo';
@@ -10,6 +11,7 @@ const description =
 
 <BaseLayout title={title} description={description} path="/guides">
   <article>
+    <BackLink href="/" />
     <header class="mb-8">
       <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Conversion guides</h1>
       <p class="mt-3 text-lg text-slate-600">

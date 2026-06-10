@@ -26,7 +26,6 @@ export interface PageContent {
   tableRows: Array<{ input: number; output: string }>;
   reverseTableRows: Array<{ input: number; output: string }>;
   faq: Array<{ question: string; answer: string }>;
-  breadcrumbLabel: string;
 }
 
 const CATEGORY_LABELS: Record<CategoryId, string> = {
@@ -284,7 +283,6 @@ export function buildPageContent(pair: ConversionPair): PageContent {
       getReverseTableSampleValues(pair.to, pair.category),
     ),
     faq: buildFaq(pair),
-    breadcrumbLabel: `${from.symbol} to ${to.symbol}`,
   };
 }
 

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConverterWidget from '../../components/ConverterWidget.astro';
 import ConversionTable from '../../components/ConversionTable.astro';
 import FAQ from '../../components/FAQ.astro';
+import BackLink from '../../components/BackLink.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import { getCategoryMeta } from '../../lib/categories';
 import { buildPageContent } from '../../lib/page-content';
@@ -37,13 +38,7 @@ const jsonLd = [
 
 <BaseLayout title={title} description={content.description} path={content.path} jsonLd={jsonLd}>
   <article>
-    <nav class="mb-4 text-sm text-slate-500" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-blue-600">Home</a>
-      <span class="mx-2">/</span>
-      <a href={category.path} class="hover:text-blue-600">{category.label}</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">{content.breadcrumbLabel}</span>
-    </nav>
+    <BackLink href={category.path} />
 
     <header class="mb-8">
       <p class="mb-2 text-sm font-medium uppercase tracking-wide text-blue-600">{content.categoryLabel} converter</p>

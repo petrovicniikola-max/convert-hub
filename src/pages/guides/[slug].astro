@@ -1,4 +1,5 @@
 ---
+import BackLink from '../../components/BackLink.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { guides } from '../../lib/guides';
 import { buildTitle, jsonLdFaq } from '../../lib/seo';
@@ -27,13 +28,7 @@ const jsonLd = jsonLdFaq(faqFromSections);
 
 <BaseLayout title={title} description={guide.description} path={path} jsonLd={jsonLd}>
   <article>
-    <nav class="mb-4 text-sm text-slate-500" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-blue-600">Home</a>
-      <span class="mx-2">/</span>
-      <a href="/guides" class="hover:text-blue-600">Guides</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-700">{guide.title}</span>
-    </nav>
+    <BackLink href="/guides" />
 
     <header class="mb-8">
       <p class="mb-2 text-sm font-medium uppercase tracking-wide text-blue-600">Guide</p>

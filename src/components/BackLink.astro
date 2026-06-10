@@ -1,0 +1,37 @@
+---
+interface Props {
+  /** Fallback when opened directly or from an external site. */
+  href: string;
+  label?: string;
+}
+
+const { href, label = 'Back' } = Astro.props;
+---
+
+<div class="mb-4">
+  <a
+    href={href}
+    class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition hover:text-blue-600"
+    data-nav-back
+  >
+    <span aria-hidden="true">←</span>
+    {label}
+  </a>
+</div>
+
+<script>
+  document.querySelectorAll('[data-nav-back]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const referrer = document.referrer;
+      if (!referrer) return;
+      try {
+        if (new URL(referrer).origin === window.location.origin) {
+          event.preventDefault();
+          history.back();
+        }
+      } catch {
+        /* use href fallback */
+      }
+    });
+  });
+</script>
