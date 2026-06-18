@@ -14,6 +14,28 @@ const { tool } = Astro.props;
   data-accept={tool.accept}
   data-output-ext={tool.outputExt}
 >
+  <fieldset class="mb-5 space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4" data-mode-fieldset>
+    <legend class="px-1 text-sm font-semibold text-slate-800">Conversion mode</legend>
+    <label class="flex cursor-pointer gap-3 rounded-lg border border-transparent p-2 hover:bg-white has-[:checked]:border-blue-200 has-[:checked]:bg-white">
+      <input type="radio" name={`mode-${tool.slug}`} value="quality" data-mode-input class="mt-1" checked />
+      <span>
+        <span class="block text-sm font-medium text-slate-900">Best quality (recommended)</span>
+        <span class="mt-0.5 block text-xs leading-relaxed text-slate-600" data-quality-desc>
+          pdf2docx / LibreOffice on our server. File is encrypted in transit, converted in memory, and deleted immediately. Up to 25 MB.
+        </span>
+      </span>
+    </label>
+    <label class="flex cursor-pointer gap-3 rounded-lg border border-transparent p-2 hover:bg-white has-[:checked]:border-blue-200 has-[:checked]:bg-white">
+      <input type="radio" name={`mode-${tool.slug}`} value="private" data-mode-input class="mt-1" />
+      <span>
+        <span class="block text-sm font-medium text-slate-900">Private (browser only)</span>
+        <span class="mt-0.5 block text-xs leading-relaxed text-slate-600">
+          LibreOffice runs locally — nothing uploaded. First visit downloads ~200 MB. Up to 10 MB.
+        </span>
+      </span>
+    </label>
+  </fieldset>
+
   <div
     data-dropzone
     class="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center transition hover:border-blue-400 hover:bg-blue-50/40"
@@ -36,7 +58,7 @@ const { tool } = Astro.props;
     <p class="text-base font-medium text-slate-800">
       Drop your <span class="text-blue-600">{tool.acceptLabel}</span> file here
     </p>
-    <p class="mt-1 text-sm text-slate-500">or click to browse · max 10 MB</p>
+    <p class="mt-1 text-sm text-slate-500" data-size-hint>or click to browse</p>
     <input
       type="file"
       accept={tool.accept}
@@ -69,17 +91,29 @@ const { tool } = Astro.props;
     </button>
   </div>
 
+  <div data-progress-wrap class="mt-4 hidden">
+    <div class="h-2 overflow-hidden rounded-full bg-slate-200">
+      <div data-progress-bar class="h-full w-0 rounded-full bg-blue-600 transition-[width] duration-300"></div>
+    </div>
+    <p data-progress-label class="mt-2 text-xs text-slate-500"></p>
+  </div>
+
   <p data-status class="mt-4 hidden text-sm" role="status" aria-live="polite"></p>
   <ul data-warnings class="mt-3 hidden list-disc space-y-1 pl-5 text-sm text-amber-700"></ul>
 </div>
 
 <script>
-  import { MAX_FILE_BYTES } from '../lib/tools';
   import { downloadBlob, formatFileSize, outputNameFromInput } from '../lib/download';
+  import {
+    isQualityModeAvailable,
+    maxBytesForMode,
+    type ConversionMode,
+  } from '../lib/conversion';
+  import { convertDocumentFile } from '../lib/document-convert';
+  import { isCrossOriginIsolated, setLibreOfficeProgressHandler } from '../lib/libreoffice';
 
   function initTool(root: HTMLElement) {
-    const slug = root.dataset.fileTool;
-    const outputExt = root.dataset.outputExt ?? 'bin';
+    const outputExt = (root.dataset.outputExt ?? 'bin') as 'pdf' | 'docx';
     const dropzone = root.querySelector<HTMLElement>('[data-dropzone]')!;
     const input = root.querySelector<HTMLInputElement>('[data-file-input]')!;
     const meta = root.querySelector<HTMLElement>('[data-file-meta]')!;
@@ -89,8 +123,38 @@ const { tool } = Astro.props;
     const clearBtn = root.querySelector<HTMLButtonElement>('[data-clear-btn]')!;
     const status = root.querySelector<HTMLElement>('[data-status]')!;
     const warningsEl = root.querySelector<HTMLElement>('[data-warnings]')!;
+    const progressWrap = root.querySelector<HTMLElement>('[data-progress-wrap]')!;
+    const progressBar = root.querySelector<HTMLElement>('[data-progress-bar]')!;
+    const progressLabel = root.querySelector<HTMLElement>('[data-progress-label]')!;
+    const sizeHint = root.querySelector<HTMLElement>('[data-size-hint]')!;
+    const modeInputs = root.querySelectorAll<HTMLInputElement>('[data-mode-input]');
+    const qualityDesc = root.querySelector<HTMLElement>('[data-quality-desc]')!;
 
     let selectedFile: File | null = null;
+    let qualityAvailable = false;
+
+    function getMode(): ConversionMode {
+      const checked = root.querySelector<HTMLInputElement>('[data-mode-input]:checked');
+      return checked?.value === 'private' ? 'private' : 'quality';
+    }
+
+    function updateSizeHint() {
+      const mode = getMode();
+      const max = maxBytesForMode(mode);
+      sizeHint.textContent = `or click to browse · max ${formatFileSize(max)}`;
+    }
+
+    function setProgress(percent: number, message: string) {
+      progressWrap.classList.remove('hidden');
+      progressBar.style.width = `${Math.min(100, Math.max(0, percent))}%`;
+      progressLabel.textContent = message;
+    }
+
+    function hideProgress() {
+      progressWrap.classList.add('hidden');
+      progressBar.style.width = '0%';
+      progressLabel.textContent = '';
+    }
 
     function setStatus(message: string, type: 'info' | 'error' | 'success' = 'info') {
       status.textContent = message;
@@ -118,15 +182,19 @@ const { tool } = Astro.props;
       clearBtn.classList.add('hidden');
       convertBtn.disabled = true;
       status.classList.add('hidden');
+      hideProgress();
       clearWarnings();
+      setLibreOfficeProgressHandler(null);
     }
 
     function pickFile(file: File | null) {
       reset();
       if (!file) return;
 
-      if (file.size > MAX_FILE_BYTES) {
-        setStatus(`File is too large (${formatFileSize(file.size)}). Maximum is 10 MB.`, 'error');
+      const mode = getMode();
+      const max = maxBytesForMode(mode);
+      if (file.size > max) {
+        setStatus(`File is too large (${formatFileSize(file.size)}). Maximum is ${formatFileSize(max)}.`, 'error');
         return;
       }
 
@@ -138,6 +206,34 @@ const { tool } = Astro.props;
       convertBtn.disabled = false;
       setStatus('Ready to convert.', 'info');
     }
+
+    async function setupModes() {
+      qualityAvailable = await isQualityModeAvailable();
+      const qualityInput = root.querySelector<HTMLInputElement>('[data-mode-input][value="quality"]')!;
+      const privateInput = root.querySelector<HTMLInputElement>('[data-mode-input][value="private"]')!;
+
+      if (!qualityAvailable) {
+        qualityInput.disabled = true;
+        qualityInput.checked = false;
+        privateInput.checked = true;
+        qualityDesc.textContent =
+          'Server conversion is starting soon — use Private mode for now (browser-only LibreOffice).';
+      }
+
+      updateSizeHint();
+    }
+
+    modeInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        updateSizeHint();
+        if (selectedFile && selectedFile.size > maxBytesForMode(getMode())) {
+          setStatus('File exceeds the limit for this mode. Choose Best quality or use a smaller file.', 'error');
+          convertBtn.disabled = true;
+        } else if (selectedFile) {
+          convertBtn.disabled = false;
+        }
+      });
+    });
 
     dropzone.addEventListener('click', () => input.click());
     dropzone.addEventListener('dragover', (e) => {
@@ -157,37 +253,52 @@ const { tool } = Astro.props;
 
     convertBtn.addEventListener('click', async () => {
       if (!selectedFile) return;
+
+      const mode = getMode();
+      if (mode === 'quality' && !qualityAvailable) {
+        setStatus('Best quality mode is not available yet. Switch to Private mode or try again later.', 'error');
+        return;
+      }
+
+      if (mode === 'private' && !isCrossOriginIsolated()) {
+        setStatus(
+          'Private mode needs a secure page context. Open /tools directly on convert-hub.net, or use Best quality mode.',
+          'error',
+        );
+        return;
+      }
+
       clearWarnings();
       convertBtn.disabled = true;
       clearBtn.disabled = true;
-      setStatus('Converting… this may take a few seconds.', 'info');
+      setStatus(mode === 'quality' ? 'Uploading and converting…' : 'Preparing browser converter…', 'info');
+
+      if (mode === 'private') {
+        setLibreOfficeProgressHandler((progress) => {
+          setProgress(progress.percent, progress.message);
+          if (progress.percent < 100) setStatus(progress.message, 'info');
+        });
+      }
 
       try {
-        const buffer = await selectedFile.arrayBuffer();
         const outName = outputNameFromInput(selectedFile.name, outputExt);
-
-        if (slug === 'word-to-pdf') {
-          const { convertWordToPdf } = await import('../lib/word-to-pdf');
-          const { blob, warnings } = await convertWordToPdf(buffer);
-          downloadBlob(blob, outName);
-          showWarnings(warnings);
-          setStatus(`Downloaded ${outName}.`, 'success');
-        } else if (slug === 'pdf-to-word') {
-          const { convertPdfToWord } = await import('../lib/pdf-to-word');
-          const blob = await convertPdfToWord(buffer);
-          downloadBlob(blob, outName);
-          setStatus(`Downloaded ${outName}.`, 'success');
-        } else {
-          throw new Error('Unknown tool');
-        }
+        const result = await convertDocumentFile(selectedFile, outputExt, mode);
+        downloadBlob(result.blob, outName);
+        showWarnings(result.warnings);
+        const engineLabel = result.engine === 'server' ? 'Server engine' : 'Browser engine';
+        setStatus(`Downloaded ${outName} (${engineLabel}).`, 'success');
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Conversion failed.';
         setStatus(message, 'error');
       } finally {
+        hideProgress();
+        setLibreOfficeProgressHandler(null);
         convertBtn.disabled = false;
         clearBtn.disabled = false;
       }
     });
+
+    void setupModes();
   }
 
   document.querySelectorAll<HTMLElement>('[data-file-tool]').forEach(initTool);

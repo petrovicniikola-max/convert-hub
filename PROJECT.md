@@ -43,7 +43,7 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 - MVP-0: done
 - MVP-1: done (50 converters, 6 categories)
 - MVP-2: done (216 converters, 5 guides, 229 pages total)
-- **File tools**: Word→PDF, PDF→Word (`/tools/*`) — client-side, 232 pages total
+- **File tools**: Word↔PDF — **Best quality**: pdf2docx + LibreOffice server (`services/converter/`). **Private**: LibreOffice WASM in-browser.
 - MVP-3: pending (DE + ES)
 
 ## Analytics (Umami)

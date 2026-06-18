@@ -14,9 +14,10 @@ export const fileTools: FileTool[] = [
     slug: 'word-to-pdf',
     title: 'Word to PDF Converter',
     description:
-      'Convert DOCX files to PDF in your browser. Free, private — your document never leaves your device.',
-    accept: '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    acceptLabel: 'DOCX',
+      'Convert Word documents to PDF with professional layout fidelity. LibreOffice server engine — tables, images, and fonts preserved.',
+    accept:
+      '.doc,.docx,.odt,.rtf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    acceptLabel: 'Word',
     outputExt: 'pdf',
     relatedSlug: 'pdf-to-word',
     relatedLabel: 'PDF to Word',
@@ -25,7 +26,7 @@ export const fileTools: FileTool[] = [
     slug: 'pdf-to-word',
     title: 'PDF to Word Converter',
     description:
-      'Convert PDF to editable DOCX in your browser. Extracts text from PDF files — best for text-based documents.',
+      'Convert PDF to editable DOCX while keeping layout, tables, and images. Powered by pdf2docx — built for faithful PDF reconstruction.',
     accept: '.pdf,application/pdf',
     acceptLabel: 'PDF',
     outputExt: 'docx',
@@ -37,5 +38,3 @@ export const fileTools: FileTool[] = [
 export function getFileTool(slug: string): FileTool | undefined {
   return fileTools.find((t) => t.slug === slug);
 }
-
-export const MAX_FILE_BYTES = 10 * 1024 * 1024;

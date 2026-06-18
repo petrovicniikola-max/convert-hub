@@ -1,7 +1,12 @@
-/sitemap-index.xml
-  Content-Type: application/xml; charset=utf-8
-  Cache-Control: public, max-age=3600
+/tools/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
 
-/sitemap-0.xml
-  Content-Type: application/xml; charset=utf-8
-  Cache-Control: public, max-age=3600
+/libreoffice/*
+  Cross-Origin-Resource-Policy: same-origin
+
+/libreoffice/wasm/*.wasm
+  Content-Type: application/wasm
+
+/libreoffice/wasm/soffice.data
+  Content-Type: application/octet-stream

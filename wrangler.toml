@@ -1,6 +1,11 @@
-# Cloudflare Workers static assets — serves the Astro `dist/` folder after `npm run build`
+# Cloudflare Workers — static assets + /api/* proxy to conversion service
 name = "convert-hub"
+main = "worker/index.ts"
 compatibility_date = "2024-11-01"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
+
+# Set in Cloudflare dashboard: https://converter.convert-hub.net (no trailing slash)
+# CONVERTER_ORIGIN = "https://converter.convert-hub.net"

@@ -22,44 +22,53 @@ const { tool } = Astro.props;
 const faqBySlug: Record<string, Array<{ question: string; answer: string }>> = {
   'word-to-pdf': [
     {
-      question: 'Is my Word document uploaded to a server?',
+      question: 'Which mode should I use?',
       answer:
-        'No. The entire conversion runs in your browser. Your DOCX file never leaves your device.',
+        'Best quality (default) uses LibreOffice on our server — fastest and most accurate for complex documents. Private mode runs LibreOffice in your browser if you do not want any upload.',
+    },
+    {
+      question: 'Is my file stored on your server?',
+      answer:
+        'No. In Best quality mode, your file is sent over HTTPS, converted in memory, and deleted immediately. We do not keep copies.',
     },
     {
       question: 'What file types are supported?',
-      answer:
-        'This tool accepts .docx files (Microsoft Word 2007 and later). Older .doc files are not supported.',
+      answer: '.doc, .docx, .odt, and .rtf files are supported.',
     },
     {
       question: 'Will formatting be preserved?',
       answer:
-        'Basic text, headings, and paragraphs usually convert well. Complex layouts, custom fonts, and embedded objects may look different in the PDF.',
+        'Yes. We use LibreOffice — the same engine used by governments and enterprises worldwide. Tables, images, headers, and page layout are preserved in both modes.',
     },
     {
-      question: 'Is there a file size limit?',
-      answer: 'Yes — files up to 10 MB are supported for reasonable browser performance.',
+      question: 'What is the file size limit?',
+      answer: 'Best quality: up to 25 MB. Private (browser): up to 10 MB.',
     },
   ],
   'pdf-to-word': [
     {
-      question: 'Is my PDF uploaded to a server?',
+      question: 'Which mode should I use?',
       answer:
-        'No. Text is extracted and a Word file is built locally in your browser. Your PDF never leaves your device.',
+        'Best quality (default) uses pdf2docx on our server — specialized for rebuilding PDF layout as editable Word. Private mode uses browser LibreOffice if you prefer zero upload.',
     },
     {
-      question: 'Will the Word file look exactly like the PDF?',
+      question: 'Will the Word file keep the PDF layout?',
       answer:
-        'No. This tool extracts text and creates a simple DOCX. Images, tables, columns, and precise layout are not recreated — use it for text-heavy documents.',
+        'Best quality mode is built for this: pdf2docx analyzes pages and recreates paragraphs, tables, images, and positioning in DOCX. Complex forms or scanned pages may still need manual cleanup.',
+    },
+    {
+      question: 'Is my PDF stored after conversion?',
+      answer:
+        'Never. Server mode processes the file in a temporary folder that is wiped when the download starts. Private mode never uploads anything.',
     },
     {
       question: 'Can it convert scanned PDFs?',
       answer:
-        'Scanned PDFs are images of text, not selectable text. This tool cannot OCR scanned pages — only PDFs with embedded text work.',
+        'No. Scanned PDFs are images, not text. Neither mode includes OCR. Use a scanned-PDF OCR tool first, then convert here.',
     },
     {
-      question: 'What is the maximum file size?',
-      answer: 'Files up to 10 MB are supported.',
+      question: 'What is the file size limit?',
+      answer: 'Best quality: up to 25 MB. Private (browser): up to 10 MB.',
     },
   ],
 };
@@ -70,20 +79,20 @@ const contentBySlug: Record<
 > = {
   'word-to-pdf': {
     h1: 'Word to PDF Converter',
-    lead: 'Turn DOCX files into PDF instantly — free, no signup, and 100% private.',
+    lead: 'Professional Word to PDF conversion — layout, tables, and images preserved.',
     introTitle: 'How it works',
     introParagraphs: [
-      'Select or drop a .docx file. ConvertHub reads it in your browser, renders the content, and generates a PDF you can download immediately.',
-      'Because nothing is sent to our servers, this is a good choice for drafts, letters, and everyday documents you do not want to upload elsewhere.',
+      'Choose Best quality for server-side LibreOffice conversion (recommended), or Private to run LibreOffice entirely in your browser.',
+      'Unlike lightweight HTML converters, this keeps real document structure — the same reason teams use LibreOffice instead of copy-paste exports.',
     ],
   },
   'pdf-to-word': {
     h1: 'PDF to Word Converter',
-    lead: 'Extract text from PDF and download an editable DOCX — runs locally in your browser.',
+    lead: 'Turn PDFs into editable Word files while keeping layout — powered by pdf2docx.',
     introTitle: 'How it works',
     introParagraphs: [
-      'Upload a text-based PDF. ConvertHub extracts the text page by page and builds a Word document you can open in Microsoft Word, Google Docs, or LibreOffice.',
-      'This is ideal when you need to edit plain text from a PDF. It does not recreate complex formatting, images, or scanned pages.',
+      'Best quality mode uses pdf2docx, a layout-aware engine that rebuilds your PDF as an editable DOCX with tables, images, and text positioning intact.',
+      'Need zero upload? Switch to Private mode for browser-only LibreOffice conversion.',
     ],
   },
 };
