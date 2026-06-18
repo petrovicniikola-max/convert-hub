@@ -54,6 +54,7 @@ const adsenseClient = 'ca-pub-4910431504323430';
           <span class="text-xs text-slate-500">{en.tagline}</span>
         </a>
         <nav class="flex items-center gap-4">
+          <a href="/tools" class="text-sm text-slate-600 hover:text-blue-600">Tools</a>
           <a href="/guides" class="text-sm text-slate-600 hover:text-blue-600">Guides</a>
           <LangSwitcher />
         </nav>
@@ -67,7 +68,8 @@ const adsenseClient = 'ca-pub-4910431504323430';
     <footer class="mt-12 border-t border-slate-200 bg-white">
       <div class="mx-auto max-w-3xl px-4 py-6 text-center text-sm text-slate-500">
         <p>{en.footer.privacy}</p>
-        <p class="mt-2">
+        <p class="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
+          <a href="/tools" class="text-blue-600 hover:underline">File converters</a>
           <a href="/guides" class="text-blue-600 hover:underline">Conversion guides</a>
         </p>
         {en.footer.comingSoon && <p class="mt-1 text-xs text-slate-400">{en.footer.comingSoon}</p>}

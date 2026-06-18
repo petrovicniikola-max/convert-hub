@@ -11,7 +11,7 @@ This folder is a **standalone project**, not the whole `Course` monorepo.
 
 - **GitHub:** https://github.com/petrovicniikola-max/convert-hub
 - **Owner:** petrovicniikola-max
-- **Production URL:** https://convert-hub.petrovicniikola.workers.dev
+- **Production URL:** https://convert-hub.net
 - **Deploy:** Cloudflare Workers & Pages via Git push to `main`
 - **Build:** `npm run build` → `dist/`
 - **Node:** 22+
