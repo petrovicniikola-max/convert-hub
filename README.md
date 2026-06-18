@@ -22,9 +22,23 @@ npm run build        # static output in dist/
 npm run generate:pairs  # regenerate conversion-pairs.json from units.json
 ```
 
-## Deploy (Cloudflare Workers)
+## Deploy (Cloudflare Workers + Containers)
 
-Git push → auto build on Cloudflare. See `PROJECT.md` for settings.
+Git push → Cloudflare builds the site and runs `npx wrangler deploy`.
+
+The **Best quality** conversion API runs as a [Cloudflare Container](https://developers.cloudflare.com/containers/) (Docker image with pdf2docx + LibreOffice). The Worker proxies:
+
+- `GET /api/health` → container
+- `POST /api/convert` → container
+- everything else → static `dist/`
+
+**Requirements:** Workers Paid plan ($5/mo) for Containers. Docker must be available when `wrangler deploy` runs (local deploy or CI with Docker).
+
+```bash
+npm run deploy   # build + wrangler deploy (Docker must be running)
+```
+
+Private mode still uses LibreOffice WASM in the browser (`public/libreoffice/` copied at build time).
 
 Production URL: **https://convert-hub.net**
 

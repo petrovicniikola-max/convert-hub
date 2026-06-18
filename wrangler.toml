@@ -1,4 +1,4 @@
-# Cloudflare Workers — static assets + /api/* proxy to conversion service
+# ConvertHub — static site + document conversion API (Cloudflare Containers)
 name = "convert-hub"
 main = "worker/index.ts"
 compatibility_date = "2024-11-01"
@@ -7,5 +7,15 @@ compatibility_date = "2024-11-01"
 directory = "./dist"
 binding = "ASSETS"
 
-# Set in Cloudflare dashboard: https://converter.convert-hub.net (no trailing slash)
-# CONVERTER_ORIGIN = "https://converter.convert-hub.net"
+[[containers]]
+class_name = "ConverterContainer"
+image = "./services/converter/Dockerfile"
+max_instances = 3
+
+[[durable_objects.bindings]]
+name = "CONVERTER"
+class_name = "ConverterContainer"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ConverterContainer"]

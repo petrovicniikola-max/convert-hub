@@ -9,7 +9,7 @@ Canonical sources for this project (do not confuse with parent `C:\Course` repo)
 | **Local path** | `C:\Course\convert-hub` |
 | **Stack** | Astro 6, Tailwind 4, TypeScript, Vitest |
 | **Build** | `npm run build` → output `dist/` |
-| **Deploy** | Cloudflare Pages (Git integration) |
+| **Deploy** | Cloudflare Workers + Containers (Git integration) |
 
 ## Cloudflare deploy settings (GitHub → Workers & Pages UI)
 
@@ -22,7 +22,7 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 | Branch | `main` |
 | Project name | `convert-hub` |
 | Build command | `npm run build` |
-| Deploy command | `npx wrangler deploy` |
+| Deploy command | `npx wrangler deploy` (builds Docker container image — requires Workers Paid plan) |
 | Non-production deploy | `npx wrangler versions upload` |
 | Path | `/` |
 | Environment variable | `NODE_VERSION` = `22` |
@@ -43,9 +43,17 @@ That works with `wrangler.toml` in this repo — it serves the static `dist/` fo
 - MVP-0: done
 - MVP-1: done (50 converters, 6 categories)
 - MVP-2: done (216 converters, 5 guides, 229 pages total)
-- **File tools**: Word↔PDF — **Best quality**: pdf2docx + LibreOffice server (`services/converter/`). **Private**: LibreOffice WASM in-browser.
+- **File tools**: Word↔PDF — **Best quality**: pdf2docx + LibreOffice on **Cloudflare Containers** (`/api/convert`). **Private**: LibreOffice WASM in-browser.
 - MVP-3: pending (DE + ES)
 
-## Analytics (Umami)
+## File converter API (Cloudflare Containers)
+
+`services/converter/Dockerfile` is deployed as a Cloudflare Container. The Worker routes `/api/health` and `/api/convert` to it.
+
+- Requires **Workers Paid** ($5/mo) for Containers + Durable Objects
+- First container deploy can take **several minutes** to provision
+- Git push → Cloudflare Builds runs `npm run build` then `npx wrangler deploy` (Docker image build happens in CI)
+
+Private mode (LibreOffice WASM) works without the container.
 
 Umami ID is embedded in `BaseLayout.astro` at build time (`a03f020c-…`). Static Workers do not support runtime env vars on Cloudflare.

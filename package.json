@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/copy-libreoffice-assets.mjs && astro build",
+    "deploy": "npm run build && wrangler deploy",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
@@ -16,6 +17,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@cloudflare/containers": "^0.3.7",
     "@matbee/libreoffice-converter": "^2.6.0",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.5",

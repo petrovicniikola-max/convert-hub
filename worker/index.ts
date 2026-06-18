@@ -1,41 +1,22 @@
+import { Container, getRandom } from '@cloudflare/containers';
+
+export class ConverterContainer extends Container {
+  defaultPort = 8080;
+  sleepAfter = '5m';
+}
+
 export interface Env {
   ASSETS: Fetcher;
-  CONVERTER_ORIGIN?: string;
+  CONVERTER: DurableObjectNamespace<ConverterContainer>;
 }
 
-function jsonError(message: string, status: number): Response {
-  return new Response(JSON.stringify({ error: message }), {
-    status,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-  });
-}
-
-async function proxyConverter(request: Request, env: Env, path: string): Promise<Response> {
-  const origin = env.CONVERTER_ORIGIN?.replace(/\/$/, '');
-  if (!origin) {
-    return jsonError('Converter service not configured', 503);
-  }
-
-  const target = `${origin}${path}`;
-  const headers = new Headers();
-  const contentType = request.headers.get('Content-Type');
-  if (contentType) headers.set('Content-Type', contentType);
-
-  const response = await fetch(target, {
+function proxyToConverter(request: Request): Request {
+  const url = new URL(request.url);
+  const path = url.pathname.replace(/^\/api/, '') || '/';
+  return new Request(`http://converter.internal${path}${url.search}`, {
     method: request.method,
-    headers,
+    headers: request.headers,
     body: request.method === 'GET' || request.method === 'HEAD' ? undefined : request.body,
-  });
-
-  return new Response(response.body, {
-    status: response.status,
-    headers: {
-      'Content-Type': response.headers.get('Content-Type') ?? 'application/octet-stream',
-      'Cache-Control': 'no-store',
-      ...(response.headers.get('Content-Disposition')
-        ? { 'Content-Disposition': response.headers.get('Content-Disposition')! }
-        : {}),
-    },
   });
 }
 
@@ -43,12 +24,17 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/health' && request.method === 'GET') {
-      return proxyConverter(request, env, '/health');
-    }
-
-    if (url.pathname === '/api/convert' && request.method === 'POST') {
-      return proxyConverter(request, env, '/convert');
+    if (url.pathname === '/api/health' || url.pathname === '/api/convert') {
+      try {
+        const container = await getRandom(env.CONVERTER, 3);
+        return await container.fetch(proxyToConverter(request));
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Converter unavailable';
+        return new Response(JSON.stringify({ error: message }), {
+          status: 503,
+          headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+        });
+      }
     }
 
     return env.ASSETS.fetch(request);
